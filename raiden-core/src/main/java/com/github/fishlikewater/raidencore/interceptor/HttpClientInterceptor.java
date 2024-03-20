@@ -30,18 +30,18 @@ import java.net.http.HttpResponse;
 public interface HttpClientInterceptor {
 
     /**
+     * 发送请求之前
      *
      * @param httpRequest 请求数据
-     * @date 2023/9/22 19:59
-     * @author fishlikewater@126.com
+     * @return {@code HttpRequest}
      */
     HttpRequest requestBefore(HttpRequest httpRequest);
 
     /**
+     * 发送请求之后
      *
      * @param response 响应
-     * @date 2023/9/22 19:59
-     * @author fishlikewater@126.com
+     * @return {@code HttpResponse}
      */
     <T> HttpResponse<T> requestAfter(HttpResponse<T> response);
 }
