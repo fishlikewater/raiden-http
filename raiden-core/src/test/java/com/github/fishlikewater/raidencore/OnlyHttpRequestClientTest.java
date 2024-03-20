@@ -15,6 +15,7 @@
  */
 package com.github.fishlikewater.raidencore;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,6 +43,6 @@ public class OnlyHttpRequestClientTest {
     public void testClient() throws InterruptedException, IOException {
         HttpRequestClient httpRequestClient = HttpBootStrap.getHttpRequestClient();
         String sync = httpRequestClient.getSync("https://www.baidu.com", String.class);
-        System.out.println(sync);
+        Assert.assertNotNull(sync);
     }
 }

@@ -16,6 +16,7 @@
 package com.github.fishlikewater.raidencore;
 
 import com.github.fishlikewater.raidencore.remote.DemoRemote;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +43,7 @@ public class RemoteTest {
     public void test() {
         DemoRemote remote = HttpBootStrap.getProxy(DemoRemote.class);
         String s = remote.baidu();
-        System.out.println(s);
+        Assert.assertNotNull(s);
     }
 
 }
