@@ -41,6 +41,9 @@ import java.util.concurrent.Flow;
  **/
 @Slf4j
 public class LogInterceptor implements HttpClientInterceptor {
+
+    private static final String MULTIPART_CONTENT_TYPE = "multipart/form-data";
+
     @Override
     public HttpRequest requestBefore(HttpRequest httpRequest) {
         log.info("=====================================REQUEST==========================================");
@@ -49,40 +52,12 @@ public class LogInterceptor implements HttpClientInterceptor {
         log.info("请求地址: {}", httpRequest.uri().toString());
         log.info("请求方法: {}", httpRequest.method());
         recordHeads(logLevel, headers);
-        if (logLevel == LogConfig.LogLevel.DETAIL){
+        if (logLevel == LogConfig.LogLevel.DETAIL) {
             httpRequest.bodyPublisher().ifPresent(bodyPublisher -> {
                 final Optional<String> contentType = headers.firstValue("Content-Type");
                 contentType.ifPresent(s -> {
-                    if (!"multipart/form-data".equals(s)) {
-                        bodyPublisher.subscribe(new Flow.Subscriber<>() {
-
-                            private final List<ByteBuffer> received = new ArrayList<>();
-                            Flow.Subscription subscription;
-                            @Override
-                            public void onSubscribe(Flow.Subscription subscription) {
-                                if (this.subscription != null) {
-                                    subscription.cancel();
-                                    return;
-                                }
-                                this.subscription = subscription;
-                                subscription.request(Long.MAX_VALUE);
-                            }
-                            @Override
-                            public void onNext(ByteBuffer item) {
-                                assert item.hasRemaining();
-                                received.add(item);
-                            }
-                            @Override
-                            public void onError(Throwable throwable) {
-                                log.error("", throwable);
-                            }
-                            @Override
-                            public void onComplete() {
-                                final byte[] bytes = ByteBufferUtils.join(received);
-                                final String jsonStr = new String(bytes, StandardCharsets.UTF_8);
-                                log.info("请求数据: {}", jsonStr);
-                            }
-                        });
+                    if (!s.contains(MULTIPART_CONTENT_TYPE)) {
+                        getRequestData(bodyPublisher);
                     }
                 });
             });
@@ -100,7 +75,7 @@ public class LogInterceptor implements HttpClientInterceptor {
         log.info("{}<-{}", state, response.uri().toString());
         final HttpHeaders headers = response.headers();
         recordHeads(logLevel, headers);
-        if (logLevel == LogConfig.LogLevel.DETAIL){
+        if (logLevel == LogConfig.LogLevel.DETAIL) {
             final String responseStr = response.body().toString();
             log.info("响应数据: {}", responseStr);
         }
@@ -109,9 +84,45 @@ public class LogInterceptor implements HttpClientInterceptor {
     }
 
     private void recordHeads(LogConfig.LogLevel logLevel, HttpHeaders headers) {
-        if (logLevel == LogConfig.LogLevel.HEADS || logLevel == LogConfig.LogLevel.DETAIL){
+        if (logLevel == LogConfig.LogLevel.HEADS || logLevel == LogConfig.LogLevel.DETAIL) {
             final Map<String, List<String>> map = headers.map();
-            map.forEach((k, v)-> log.info("{}: {}", k, v));
+            map.forEach((k, v) -> log.info("{}: {}", k, v));
         }
+    }
+
+    private static void getRequestData(HttpRequest.BodyPublisher bodyPublisher) {
+        bodyPublisher.subscribe(new Flow.Subscriber<>() {
+
+            private final List<ByteBuffer> received = new ArrayList<>();
+            Flow.Subscription subscription;
+
+            @Override
+            public void onSubscribe(Flow.Subscription subscription) {
+                if (this.subscription != null) {
+                    subscription.cancel();
+                    return;
+                }
+                this.subscription = subscription;
+                subscription.request(Long.MAX_VALUE);
+            }
+
+            @Override
+            public void onNext(ByteBuffer item) {
+                assert item.hasRemaining();
+                received.add(item);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                log.error("", throwable);
+            }
+
+            @Override
+            public void onComplete() {
+                final byte[] bytes = ByteBufferUtils.join(received);
+                final String jsonStr = new String(bytes, StandardCharsets.UTF_8);
+                log.info("请求数据: {}", jsonStr);
+            }
+        });
     }
 }
