@@ -32,7 +32,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
- *
  * @author fishlikewater@126.com
  * @date 2021年12月26日 18:59
  * @since 1.0.0
@@ -45,7 +44,6 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
     public Object handler(HttpMethod method, Map<String, String> headMap, Class<?> returnType, Type typeArgument, boolean form, String url,
                           Map<String, String> paramMap, Object bodyObject, HttpClientInterceptor interceptor, MultipartData multipartData,
                           HttpClient httpClient) {
-
         return request(url, method, form, returnType, TypeUtil.getClass(typeArgument),
                 headMap, paramMap, bodyObject, interceptor, multipartData, httpClient);
     }
@@ -75,10 +73,9 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
             case POST -> {
                 if (form) {
                     return httpRequestClient.formSync(url, headMap, bodyObject, returnType, interceptor, httpClient);
-                } else {
-                    if (Objects.nonNull(multipartData)) {
-                        return httpRequestClient.fileSync(url, headMap, bodyObject, returnType, interceptor, multipartData, httpClient);
-                    }
+                }
+                if (Objects.nonNull(multipartData)) {
+                    return httpRequestClient.fileSync(url, headMap, bodyObject, returnType, interceptor, multipartData, httpClient);
                 }
                 return httpRequestClient.postSync(url, headMap, bodyObject, returnType, interceptor, httpClient);
             }
@@ -104,10 +101,9 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
             case POST -> {
                 if (form) {
                     return httpRequestClient.formAsync(url, headMap, bodyObject, typeArgument, interceptor, httpClient);
-                } else {
-                    if (Objects.nonNull(multipartData)) {
-                        return httpRequestClient.fileAsync(url, headMap, bodyObject, typeArgument, interceptor, multipartData, httpClient);
-                    }
+                }
+                if (Objects.nonNull(multipartData)) {
+                    return httpRequestClient.fileAsync(url, headMap, bodyObject, typeArgument, interceptor, multipartData, httpClient);
                 }
                 return httpRequestClient.postAsync(url, headMap, bodyObject, typeArgument, interceptor, httpClient);
             }

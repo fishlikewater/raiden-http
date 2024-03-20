@@ -17,6 +17,7 @@ package com.github.fishlikewater.raidencore.processor;
 
 import com.github.fishlikewater.raidencore.MethodArgsBean;
 import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
+
 import java.lang.reflect.Method;
 
 /**
@@ -30,15 +31,44 @@ import java.lang.reflect.Method;
  **/
 public interface HttpClientBeanFactory {
 
+    /**
+     * 获取方法参数
+     * @param methodName 方法名
+     * @return 方法参数
+     */
     MethodArgsBean getMethodArgsBean(String methodName);
 
+    /**
+     * 缓存方法
+     * @param method 方法
+     */
     void cacheMethod(Method method);
 
+    /**
+     * 获取代理对象
+     * @param tClass 类
+     * @param <T> 泛型
+     * @return 代理对象
+     */
     <T> T getProxyObject(Class<T> tClass);
 
+    /**
+     * 缓存代理对象
+     * @param className 类名
+     * @param proxyObject 代理对象
+     */
     void cacheProxyObject(String className,  Object proxyObject);
 
+    /**
+     * 获取拦截器
+     * @param interceptorName 拦截器名
+     * @return 拦截器
+     */
     HttpClientInterceptor getInterceptor(String interceptorName);
 
+    /**
+     * 缓存拦截器
+     * @param httpClientInterceptor 拦截器
+     */
     void setHttpClientInterceptor(HttpClientInterceptor httpClientInterceptor);
 }

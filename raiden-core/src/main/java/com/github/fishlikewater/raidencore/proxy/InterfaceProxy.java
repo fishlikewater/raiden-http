@@ -30,6 +30,7 @@ import com.github.fishlikewater.raidencore.enums.HttpMethod;
 import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
 import com.github.fishlikewater.raidencore.processor.HttpClientBeanFactory;
 import com.github.fishlikewater.raidencore.processor.HttpClientProcessor;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
@@ -48,6 +49,15 @@ import java.util.Objects;
  **/
 public interface InterfaceProxy {
 
+    /**
+     * 处理请求
+     *
+     * @param method 方法
+     * @param args 参数
+     * @param httpClientProcessor {@code HttpClientProcessor}
+     * @param httpClientBeanFactory {@code HttpClientBeanFactory}
+     * @return Object
+     */
     default Object handler(Method method, Object[] args, HttpClientProcessor httpClientProcessor, HttpClientBeanFactory httpClientBeanFactory) {
         String name = method.toGenericString();
         final MethodArgsBean methodArgsBean = httpClientBeanFactory.getMethodArgsBean(name);
@@ -102,5 +112,11 @@ public interface InterfaceProxy {
                 bodyObject, interceptor, multipartData, httpClient);
     }
 
+    /**
+     * 获取代理对象
+     *
+     * @param interfaceClass 接口
+     * @return T
+     */
     <T> T getInstance(Class<T> interfaceClass);
 }

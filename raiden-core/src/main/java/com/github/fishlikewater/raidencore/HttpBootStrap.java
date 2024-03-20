@@ -33,6 +33,7 @@ import io.github.classgraph.ScanResult;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Method;
 import java.net.http.HttpClient;
 import java.time.Duration;
@@ -148,10 +149,7 @@ public class HttpBootStrap {
             httpClientProcessor = new DefaultHttpClientProcessor();
         }
         if (Objects.isNull(interfaceProxy)) {
-            final JdkInterfaceProxy jdkInterfaceProxy = new JdkInterfaceProxy();
-            jdkInterfaceProxy.setHttpClientBeanFactory(httpClientBeanFactory);
-            jdkInterfaceProxy.setHttpClientProcessor(httpClientProcessor);
-            interfaceProxy = jdkInterfaceProxy;
+            buildProxy();
         }
         final ClassGraph classGraph = new ClassGraph();
         try (ScanResult scan = classGraph.enableAllInfo().acceptPackages(packages).scan()) {
@@ -159,15 +157,26 @@ public class HttpBootStrap {
             for (ClassInfo allClass : allClasses) {
                 Class<?> clazz = Class.forName(allClass.getName());
                 Method[] methods = clazz.getDeclaredMethods();
-                for (Method method : methods) {
-                    if (selfManager) {
-                        final Object instance = interfaceProxy.getInstance(clazz);
-                        httpClientBeanFactory.cacheProxyObject(allClass.getName(), instance);
-                    }
-                    httpClientBeanFactory.cacheMethod(method);
-                }
+                cacheMethod(allClass, methods, clazz);
             }
         }
         log.info("httpClient 接口初始化完成....");
+    }
+
+    private static void buildProxy() {
+        final JdkInterfaceProxy jdkInterfaceProxy = new JdkInterfaceProxy();
+        jdkInterfaceProxy.setHttpClientBeanFactory(httpClientBeanFactory);
+        jdkInterfaceProxy.setHttpClientProcessor(httpClientProcessor);
+        interfaceProxy = jdkInterfaceProxy;
+    }
+
+    private static void cacheMethod(ClassInfo allClass, Method[] methods, Class<?> clazz) {
+        for (Method method : methods) {
+            if (selfManager) {
+                final Object instance = interfaceProxy.getInstance(clazz);
+                httpClientBeanFactory.cacheProxyObject(allClass.getName(), instance);
+            }
+            httpClientBeanFactory.cacheMethod(method);
+        }
     }
 }
