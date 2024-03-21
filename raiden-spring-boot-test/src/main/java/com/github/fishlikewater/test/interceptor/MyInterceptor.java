@@ -16,6 +16,8 @@
 package com.github.fishlikewater.test.interceptor;
 
 import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
+import org.springframework.stereotype.Component;
+
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
@@ -27,12 +29,12 @@ import java.net.http.HttpResponse;
  * @author fishlikewater@126.com
  * @since 2023年09月23日 13:41
  **/
+@Component
 public class MyInterceptor implements HttpClientInterceptor {
 
     @Override
     public HttpRequest requestBefore(HttpRequest httpRequest) {
         System.out.println("自定义拦截器--请求");
-
         return httpRequest;
     }
 

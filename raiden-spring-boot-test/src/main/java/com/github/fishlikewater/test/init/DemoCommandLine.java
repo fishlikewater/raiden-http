@@ -20,9 +20,12 @@ import com.github.fishlikewater.test.remote.DemoFile;
 import com.github.fishlikewater.test.remote.DemoLocal;
 import com.github.fishlikewater.test.remote.DemoRemote;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +38,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class DemoCommandLine implements CommandLineRunner {
 
@@ -45,37 +49,38 @@ public class DemoCommandLine implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws InterruptedException {
-        //this.testRemote();
+        this.testRemote();
         //this.testLocal();
-        this.testFile();
+        //this.testFile();
         Thread.sleep(2000);
         System.exit(0);
     }
 
     private void testFile() {
         // 文件下载
-        //MultipartData fileDownload = MultipartData.ofFileDownload(Path.of("/file/1.png"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-        //demoFile.download(fileDownload);
+        MultipartData fileDownload = MultipartData.ofFileDownload(Path.of("/file/1.png"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        Path download = demoFile.download(fileDownload);
+        log.info(download.toString());
 
         // 文件上传
-        MultipartData multipartData = MultipartData.ofFileUpload("E:\\file\\1.png");
-        demoFile.uploadFile(multipartData);
+        //MultipartData multipartData = MultipartData.ofFileUpload("E:\\file\\1.png");
+        //demoFile.uploadFile(multipartData);
     }
 
     private void testRemote() {
         // 测试百度访问
         String s = demoRemote.baidu();
-        System.out.println(s);
+        log.info(s);
 
         //测试 https
         String s2 = demoRemote.baidu2();
-        System.out.println(s2);
+        log.info(s2);
 
         // 测试路径参数
         String java1 = demoRemote.baidu3("java");
-        System.out.println(java1);
+        log.info(java1);
         String java2 = demoRemote.baidu4("java");
-        System.out.println(java2);
+        log.info(java2);
 
         //测试异步调用
         demoRemote.baidu5().thenAccept(System.out::println);
@@ -94,6 +99,6 @@ public class DemoCommandLine implements CommandLineRunner {
         demoLocal.demo(map, headWrap);*/
 
         // 测试form
-        System.out.println(demoLocal.form(map));
+        log.info(demoLocal.form(map));
     }
 }
