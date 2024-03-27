@@ -24,6 +24,7 @@ import com.github.fishlikewater.raidencore.enums.HttpMethod;
 import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -58,18 +59,16 @@ public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {
 
     @Override
     public MethodArgsBean getMethodArgsBean(String methodName) {
-
         return methodCache.get(methodName);
     }
 
     @Override
     public void cacheMethod(Method method) {
-
         HttpMethod requestMethodType = null;
         boolean isForm = false;
-        boolean isContinue = false;
         String path = "";
         final Annotation[] annotations = method.getAnnotations();
+
         for (Annotation annotation : annotations) {
             if (annotation instanceof Form) {
                 isForm = true;
@@ -77,45 +76,35 @@ public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {
             if (annotation instanceof RequireLine requireLine) {
                 requestMethodType = requireLine.method();
                 path = requireLine.path();
-                isContinue = true;
             }
             if (annotation instanceof GET get) {
                 requestMethodType = HttpMethod.GET;
                 path = get.value();
-                isContinue = true;
             }
             if (annotation instanceof POST post) {
                 requestMethodType = HttpMethod.POST;
                 path = post.value();
-                isContinue = true;
             }
             if (annotation instanceof PUT put) {
                 requestMethodType = HttpMethod.PUT;
                 path = put.value();
-                isContinue = true;
+            }
+            if (annotation instanceof PATCH patch) {
+                requestMethodType = HttpMethod.PATCH;
+                path = patch.value();
             }
             if (annotation instanceof DELETE delete) {
                 requestMethodType = HttpMethod.DELETE;
                 path = delete.value();
-                isContinue = true;
             }
         }
-        if (!isContinue) {
+        if (Objects.isNull(requestMethodType)) {
             return;
         }
         final Interceptor interceptor = method.getDeclaringClass().getAnnotation(Interceptor.class);
         HttpServer httpServer = method.getDeclaringClass().getAnnotation(HttpServer.class);
         String serverName = httpServer.serverName();
-        String interceptorClassName = null;
-        if (Objects.nonNull(interceptor)) {
-            interceptorClassName = interceptor.value().getName();
-            if (HttpBootStrap.isSelfManager()) {
-                final HttpClientInterceptor httpClientInterceptor = interceptorCache.get(interceptorClassName);
-                if (Objects.isNull(httpClientInterceptor)) {
-                    setHttpClientInterceptor(getInterceptor(interceptor.value()));
-                }
-            }
-        }
+        String interceptorClassName = handleInterceptor(interceptor);
         final Class<?> returnType = method.getReturnType();
         final Type returnType1 = TypeUtil.getReturnType(method);
         final Type typeArgument = TypeUtil.getTypeArgument(returnType1);
@@ -128,8 +117,34 @@ public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {
         final String requestUrl = path.startsWith("http") ? path : getUrl(httpServer.protocol(), httpServer.url(), path);
         final String className = method.getDeclaringClass().getName();
         String name = method.toGenericString();
-        methodCache.put(name, new MethodArgsBean(className, method.getName(), serverName, httpServer.sourceHttpClient(),
-                interceptorClassName, requestMethodType, isForm, headMap, requestUrl, parameters, returnType, typeArgument));
+        MethodArgsBean methodArgsBean = new MethodArgsBean(
+                className,
+                method.getName(),
+                serverName,
+                httpServer.sourceHttpClient(),
+                interceptorClassName,
+                requestMethodType,
+                isForm,
+                headMap,
+                requestUrl,
+                parameters,
+                returnType,
+                typeArgument);
+        methodCache.put(name, methodArgsBean);
+    }
+
+    private String handleInterceptor(Interceptor interceptor) {
+        String interceptorClassName = null;
+        if (Objects.nonNull(interceptor)) {
+            interceptorClassName = interceptor.value().getName();
+            if (HttpBootStrap.isSelfManager()) {
+                final HttpClientInterceptor httpClientInterceptor = interceptorCache.get(interceptorClassName);
+                if (Objects.isNull(httpClientInterceptor)) {
+                    setHttpClientInterceptor(getInterceptor(interceptor.value()));
+                }
+            }
+        }
+        return interceptorClassName;
     }
 
     @Override
