@@ -15,7 +15,9 @@
  */
 package com.github.fishlikewater.raidencore;
 
+import com.github.fishlikewater.raidencore.enums.HttpMethod;
 import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
+
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.util.Map;
@@ -45,35 +47,53 @@ public abstract class AbstractHttpRequestClient {
      * @param <T>           返回类型
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> getAsync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> typeArgument, HttpClientInterceptor interceptor, HttpClient httpClient, MultipartData multipartData);
+    abstract <T> CompletableFuture<T> getAsync(String url,
+                                               Map<String, String> headMap,
+                                               Map<String, String> paramMap,
+                                               Class<T> typeArgument,
+                                               HttpClientInterceptor interceptor,
+                                               HttpClient httpClient,
+                                               MultipartData multipartData);
 
     /**
      * get请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param paramMap     请求参数
      * @param typeArgument 返回类型
-     * @param interceptor 拦截器
-     * @param httpClient http客户端
-     * @param <T> 返回类型
+     * @param interceptor  拦截器
+     * @param httpClient   http客户端
+     * @param <T>          返回类型
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> getAsync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> typeArgument, HttpClientInterceptor interceptor, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> getAsync(String url,
+                                               Map<String, String> headMap,
+                                               Map<String, String> paramMap,
+                                               Class<T> typeArgument,
+                                               HttpClientInterceptor interceptor,
+                                               HttpClient httpClient);
 
     /**
      * get请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param paramMap     请求参数
      * @param typeArgument 返回类型
-     * @param httpClient http客户端
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> getAsync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> typeArgument, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> getAsync(String url,
+                                               Map<String, String> headMap,
+                                               Map<String, String> paramMap,
+                                               Class<T> typeArgument,
+                                               HttpClient httpClient);
 
     /**
      * get请求
-     * @param url 请求地址
+     *
+     * @param url          请求地址
      * @param typeArgument 返回类型
      * @return CompletableFuture
      */
@@ -81,53 +101,72 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * get请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
-     * @param interceptor 拦截器
-     * @param httpClient http客户端
+     *
+     * @param url           请求地址
+     * @param headMap       请求头
+     * @param paramMap      请求参数
+     * @param interceptor   拦截器
+     * @param httpClient    http客户端
      * @param multipartData 文件上传
-     * @param returnType 返回类型
+     * @param returnType    返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T getSync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> returnType, HttpClientInterceptor interceptor, HttpClient httpClient, MultipartData multipartData) throws IOException, InterruptedException;
+    abstract <T> T getSync(String url,
+                           Map<String, String> headMap,
+                           Map<String, String> paramMap,
+                           Class<T> returnType,
+                           HttpClientInterceptor interceptor,
+                           HttpClient httpClient,
+                           MultipartData multipartData) throws IOException, InterruptedException;
 
     /**
      * get请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url         请求地址
+     * @param headMap     请求头
+     * @param paramMap    请求参数
      * @param interceptor 拦截器
-     * @param httpClient http客户端
-     * @param returnType 返回类型
+     * @param httpClient  http客户端
+     * @param returnType  返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T getSync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> returnType, HttpClientInterceptor interceptor, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T getSync(String url,
+                           Map<String, String> headMap,
+                           Map<String, String> paramMap,
+                           Class<T> returnType,
+                           HttpClientInterceptor interceptor,
+                           HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * get请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url        请求地址
+     * @param headMap    请求头
+     * @param paramMap   请求参数
      * @param httpClient http客户端
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T getSync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> returnType, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T getSync(String url,
+                           Map<String, String> headMap,
+                           Map<String, String> paramMap,
+                           Class<T> returnType,
+                           HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * get请求
-     * @param url 请求地址
+     *
+     * @param url        请求地址
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
     abstract <T> T getSync(String url, Class<T> returnType) throws IOException, InterruptedException;
 
@@ -135,30 +174,42 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * delete请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param paramMap     请求参数
      * @param typeArgument 返回类型
-     * @param interceptor 拦截器
-     * @param httpClient http客户端
+     * @param interceptor  拦截器
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> deleteAsync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> typeArgument, HttpClientInterceptor interceptor, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> deleteAsync(String url,
+                                                  Map<String, String> headMap,
+                                                  Map<String, String> paramMap,
+                                                  Class<T> typeArgument,
+                                                  HttpClientInterceptor interceptor,
+                                                  HttpClient httpClient);
 
     /**
      * delete请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param paramMap     请求参数
      * @param typeArgument 返回类型
-     * @param httpClient http客户端
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> deleteAsync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> typeArgument, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> deleteAsync(String url,
+                                                  Map<String, String> headMap,
+                                                  Map<String, String> paramMap,
+                                                  Class<T> typeArgument,
+                                                  HttpClient httpClient);
 
     /**
      * delete请求
-     * @param url 请求地址
+     *
+     * @param url          请求地址
      * @param typeArgument 返回类型
      * @return CompletableFuture
      */
@@ -166,38 +217,50 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * delete请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url         请求地址
+     * @param headMap     请求头
+     * @param paramMap    请求参数
      * @param interceptor 拦截器
-     * @param httpClient http客户端
-     * @param returnType 返回类型
+     * @param httpClient  http客户端
+     * @param returnType  返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T deleteSync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> returnType, HttpClientInterceptor interceptor, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T deleteSync(String url,
+                              Map<String, String> headMap,
+                              Map<String, String> paramMap,
+                              Class<T> returnType,
+                              HttpClientInterceptor interceptor,
+                              HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * delete请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param paramMap 请求参数
+     *
+     * @param url        请求地址
+     * @param headMap    请求头
+     * @param paramMap   请求参数
      * @param httpClient http客户端
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T deleteSync(String url, Map<String, String> headMap, Map<String, String> paramMap, Class<T> returnType, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T deleteSync(String url,
+                              Map<String, String> headMap,
+                              Map<String, String> paramMap,
+                              Class<T> returnType,
+                              HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * delete请求
-     * @param url 请求地址
+     *
+     * @param url        请求地址
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
     abstract <T> T deleteSync(String url, Class<T> returnType) throws IOException, InterruptedException;
 
@@ -205,31 +268,39 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * post请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
-     * @param interceptor 拦截器
-     * @param httpClient http客户端
+     * @param interceptor  拦截器
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> postAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClientInterceptor interceptor, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> postAsync(String url,
+                                                Map<String, String> headMap,
+                                                Object bodyObject,
+                                                Class<T> typeArgument,
+                                                HttpClientInterceptor interceptor,
+                                                HttpClient httpClient);
 
     /**
      * post请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
-     * @param httpClient http客户端
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
     abstract <T> CompletableFuture<T> postAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClient httpClient);
 
     /**
      * post请求
-     * @param url 请求地址
-     * @param bodyObject 请求参数
+     *
+     * @param url          请求地址
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
      * @return CompletableFuture
      */
@@ -237,39 +308,51 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * post请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param url         请求地址
+     * @param headMap     请求头
+     * @param bodyObject  请求参数
      * @param interceptor 拦截器
-     * @param httpClient http客户端
-     * @param returnType 返回类型
+     * @param httpClient  http客户端
+     * @param returnType  返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T postSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClientInterceptor interceptor, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T postSync(String url,
+                            Map<String, String> headMap,
+                            Object bodyObject,
+                            Class<T> returnType,
+                            HttpClientInterceptor interceptor,
+                            HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * post请求
-     * @param url 请求地址
-     * @param headMap 请求头
+     *
+     * @param url        请求地址
+     * @param headMap    请求头
      * @param bodyObject 请求参数
      * @param httpClient http客户端
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T postSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T postSync(String url,
+                            Map<String, String> headMap,
+                            Object bodyObject,
+                            Class<T> returnType,
+                            HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * post请求
-     * @param url 请求地址
+     *
+     * @param url        请求地址
      * @param bodyObject 请求参数
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
     abstract <T> T postSync(String url, Object bodyObject, Class<T> returnType) throws IOException, InterruptedException;
 
@@ -277,31 +360,43 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * put请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
-     * @param interceptor 拦截器
-     * @param httpClient http客户端
+     * @param interceptor  拦截器
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> putAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClientInterceptor interceptor, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> putAsync(String url,
+                                               Map<String, String> headMap,
+                                               Object bodyObject,
+                                               Class<T> typeArgument,
+                                               HttpClientInterceptor interceptor,
+                                               HttpClient httpClient);
 
     /**
      * put请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
-     * @param httpClient http客户端
+     * @param httpClient   http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> putAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> putAsync(String url,
+                                               Map<String, String> headMap,
+                                               Object bodyObject,
+                                               Class<T> typeArgument,
+                                               HttpClient httpClient);
 
     /**
      * put请求
-     * @param url 请求地址
-     * @param bodyObject 请求参数
+     *
+     * @param url          请求地址
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
      * @return CompletableFuture
      */
@@ -309,148 +404,320 @@ public abstract class AbstractHttpRequestClient {
 
     /**
      * put请求
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param url         请求地址
+     * @param headMap     请求头
+     * @param bodyObject  请求参数
      * @param interceptor 拦截器
-     * @param httpClient http客户端
-     * @param returnType 返回类型
+     * @param httpClient  http客户端
+     * @param returnType  返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T putSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClientInterceptor interceptor, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T putSync(String url,
+                           Map<String, String> headMap,
+                           Object bodyObject,
+                           Class<T> returnType,
+                           HttpClientInterceptor interceptor,
+                           HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * put请求
-     * @param url 请求地址
-     * @param headMap 请求头
+     *
+     * @param url        请求地址
+     * @param headMap    请求头
      * @param bodyObject 请求参数
      * @param httpClient http客户端
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T putSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T putSync(String url,
+                           Map<String, String> headMap,
+                           Object bodyObject,
+                           Class<T> returnType,
+                           HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * put请求
-     * @param url 请求地址
+     *
+     * @param url        请求地址
      * @param bodyObject 请求参数
      * @param returnType 返回类型
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
     abstract <T> T putSync(String url, Object bodyObject, Class<T> returnType) throws IOException, InterruptedException;
+
+    //--------------------patch------------------------
+
+    /**
+     * patch请求
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
+     * @param typeArgument 返回类型
+     * @param interceptor  拦截器
+     * @param httpClient   http客户端
+     * @return CompletableFuture
+     */
+    abstract <T> CompletableFuture<T> patchAsync(String url,
+                                                 Map<String, String> headMap,
+                                                 Object bodyObject,
+                                                 Class<T> typeArgument,
+                                                 HttpClientInterceptor interceptor,
+                                                 HttpClient httpClient);
+
+    /**
+     * patch请求
+     *
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
+     * @param typeArgument 返回类型
+     * @param httpClient   http客户端
+     * @return CompletableFuture
+     */
+    abstract <T> CompletableFuture<T> patchAsync(String url,
+                                                 Map<String, String> headMap,
+                                                 Object bodyObject,
+                                                 Class<T> typeArgument,
+                                                 HttpClient httpClient);
+
+    /**
+     * patch请求
+     *
+     * @param url          请求地址
+     * @param bodyObject   请求参数
+     * @param typeArgument 返回类型
+     * @return CompletableFuture
+     */
+    abstract <T> CompletableFuture<T> patchAsync(String url, Object bodyObject, Class<T> typeArgument);
+
+    /**
+     * patch请求
+     *
+     * @param url         请求地址
+     * @param headMap     请求头
+     * @param bodyObject  请求参数
+     * @param interceptor 拦截器
+     * @param httpClient  http客户端
+     * @param returnType  返回类型
+     * @return CompletableFuture
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
+     */
+    abstract <T> T patchSync(String url,
+                             Map<String, String> headMap,
+                             Object bodyObject,
+                             Class<T> returnType,
+                             HttpClientInterceptor interceptor,
+                             HttpClient httpClient) throws IOException, InterruptedException;
+
+    /**
+     * patch请求
+     *
+     * @param url        请求地址
+     * @param headMap    请求头
+     * @param bodyObject 请求参数
+     * @param httpClient http客户端
+     * @param returnType 返回类型
+     * @return CompletableFuture
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
+     */
+    abstract <T> T patchSync(String url,
+                             Map<String, String> headMap,
+                             Object bodyObject,
+                             Class<T> returnType,
+                             HttpClient httpClient) throws IOException, InterruptedException;
+
+    /**
+     * patch请求
+     *
+     * @param url        请求地址
+     * @param bodyObject 请求参数
+     * @param returnType 返回类型
+     * @return CompletableFuture
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
+     */
+    abstract <T> T patchSync(String url, Object bodyObject, Class<T> returnType) throws IOException, InterruptedException;
 
     //--------------------File------------------------
 
     /**
      * 文件上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
-     * @param typeArgument 返回类型
-     * @param interceptor 拦截器
+     *
+     * @param method        请求方法
+     * @param url           请求地址
+     * @param headMap       请求头
+     * @param bodyObject    请求参数
+     * @param typeArgument  返回类型
+     * @param interceptor   拦截器
      * @param multipartData 文件参数
-     * @param httpClient http客户端
+     * @param httpClient    http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> fileAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClientInterceptor interceptor, MultipartData multipartData, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> fileAsync(HttpMethod method,
+                                                String url,
+                                                Map<String, String> headMap,
+                                                Object bodyObject,
+                                                Class<T> typeArgument,
+                                                HttpClientInterceptor interceptor,
+                                                MultipartData multipartData,
+                                                HttpClient httpClient);
 
     /**
      * 文件上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
-     * @param typeArgument 返回类型
+     *
+     * @param method        请求方法
+     * @param url           请求地址
+     * @param headMap       请求头
+     * @param bodyObject    请求参数
+     * @param typeArgument  返回类型
      * @param multipartData 文件参数
-     * @param httpClient http客户端
+     * @param httpClient    http客户端
      * @return CompletableFuture
      */
-    abstract <T> CompletableFuture<T> fileAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, MultipartData multipartData, HttpClient httpClient);
+    abstract <T> CompletableFuture<T> fileAsync(HttpMethod method,
+                                                String url,
+                                                Map<String, String> headMap,
+                                                Object bodyObject,
+                                                Class<T> typeArgument,
+                                                MultipartData multipartData,
+                                                HttpClient httpClient);
 
     /**
      * 文件上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
-     * @param returnType 返回类型
-     * @param interceptor 拦截器
-     * @param httpClient http客户端
+     *
+     * @param method        请求方法
+     * @param url           请求地址
+     * @param headMap       请求头
+     * @param bodyObject    请求参数
+     * @param returnType    返回类型
+     * @param interceptor   拦截器
+     * @param httpClient    http客户端
      * @param multipartData 文件参数
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T fileSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClientInterceptor interceptor, MultipartData multipartData, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T fileSync(HttpMethod method,
+                            String url,
+                            Map<String, String> headMap,
+                            Object bodyObject,
+                            Class<T> returnType,
+                            HttpClientInterceptor interceptor,
+                            MultipartData multipartData,
+                            HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * 文件上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
-     * @param returnType 返回类型
-     * @param httpClient http客户端
+     *
+     * @param method        请求方法
+     * @param url           请求地址
+     * @param headMap       请求头
+     * @param bodyObject    请求参数
+     * @param returnType    返回类型
+     * @param httpClient    http客户端
      * @param multipartData 文件参数
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T fileSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, MultipartData multipartData, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T fileSync(HttpMethod method,
+                            String url,
+                            Map<String, String> headMap,
+                            Object bodyObject,
+                            Class<T> returnType,
+                            MultipartData multipartData,
+                            HttpClient httpClient) throws IOException, InterruptedException;
 
     //--------------------form------------------------
 
     /**
      * form表单上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
+     *
+     * @param method       请求方法
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
      * @param typeArgument 返回类型
+     * @param interceptor  拦截器
+     * @param httpClient   http客户端
+     * @return CompletableFuture
+     */
+    abstract <T> CompletableFuture<T> formAsync(HttpMethod method,
+                                                String url,
+                                                Map<String, String> headMap,
+                                                Object bodyObject,
+                                                Class<T> typeArgument,
+                                                HttpClientInterceptor interceptor,
+                                                HttpClient httpClient);
+
+    /**
+     * form表单上传
+     *
+     * @param method       请求方法
+     * @param url          请求地址
+     * @param headMap      请求头
+     * @param bodyObject   请求参数
+     * @param typeArgument 返回类型
+     * @param httpClient   http客户端
+     * @return CompletableFuture
+     */
+    abstract <T> CompletableFuture<T> formAsync(HttpMethod method,
+                                                String url,
+                                                Map<String, String> headMap,
+                                                Object bodyObject,
+                                                Class<T> typeArgument,
+                                                HttpClient httpClient);
+
+    /**
+     * form表单上传
+     *
+     * @param method      请求方法
+     * @param url         请求地址
+     * @param headMap     请求头
+     * @param bodyObject  请求参数
+     * @param returnType  返回类型
      * @param interceptor 拦截器
-     * @param httpClient http客户端
+     * @param httpClient  http客户端
      * @return CompletableFuture
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> CompletableFuture<T> formAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClientInterceptor interceptor, HttpClient httpClient);
+    abstract <T> T formSync(HttpMethod method,
+                            String url,
+                            Map<String, String> headMap,
+                            Object bodyObject,
+                            Class<T> returnType,
+                            HttpClientInterceptor interceptor,
+                            HttpClient httpClient) throws IOException, InterruptedException;
 
     /**
      * form表单上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
-     * @param typeArgument 返回类型
-     * @param httpClient http客户端
-     * @return CompletableFuture
-     */
-    abstract <T> CompletableFuture<T> formAsync(String url, Map<String, String> headMap, Object bodyObject, Class<T> typeArgument, HttpClient httpClient);
-
-    /**
-     * form表单上传
-     * @param url 请求地址
-     * @param headMap 请求头
+     *
+     * @param method     请求方法
+     * @param url        请求地址
+     * @param headMap    请求头
      * @param bodyObject 请求参数
      * @param returnType 返回类型
-     * @param interceptor 拦截器
      * @param httpClient http客户端
      * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
+     * @throws IOException          异常
+     * @throws InterruptedException 异常
      */
-    abstract <T> T formSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClientInterceptor interceptor, HttpClient httpClient) throws IOException, InterruptedException;
-
-    /**
-     * form表单上传
-     * @param url 请求地址
-     * @param headMap 请求头
-     * @param bodyObject 请求参数
-     * @param returnType 返回类型
-     * @param httpClient http客户端
-     * @return CompletableFuture
-     * @throws IOException 异常
-     * @throws  InterruptedException 异常
-     */
-    abstract <T> T formSync(String url, Map<String, String> headMap, Object bodyObject, Class<T> returnType, HttpClient httpClient) throws IOException, InterruptedException;
+    abstract <T> T formSync(HttpMethod method,
+                            String url,
+                            Map<String, String> headMap,
+                            Object bodyObject,
+                            Class<T> returnType,
+                            HttpClient httpClient) throws IOException, InterruptedException;
 
 }

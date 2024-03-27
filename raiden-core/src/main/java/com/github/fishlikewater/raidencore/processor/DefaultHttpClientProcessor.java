@@ -41,15 +41,32 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
 
     @SneakyThrows(Throwable.class)
     @Override
-    public Object handler(HttpMethod method, Map<String, String> headMap, Class<?> returnType, Type typeArgument, boolean form, String url,
-                          Map<String, String> paramMap, Object bodyObject, HttpClientInterceptor interceptor, MultipartData multipartData,
+    public Object handler(HttpMethod method,
+                          Map<String, String> headMap,
+                          Class<?> returnType,
+                          Type typeArgument,
+                          boolean form,
+                          String url,
+                          Map<String, String> paramMap,
+                          Object bodyObject,
+                          HttpClientInterceptor interceptor,
+                          MultipartData multipartData,
                           HttpClient httpClient) {
         return request(url, method, form, returnType, TypeUtil.getClass(typeArgument),
                 headMap, paramMap, bodyObject, interceptor, multipartData, httpClient);
     }
 
-    private <T> Object request(String url, HttpMethod method, boolean form, Class<?> returnType, Class<T> typeArgument, Map<String, String> headMap,
-                               Map<String, String> paramMap, Object bodyObject, HttpClientInterceptor interceptor, MultipartData multipartData, HttpClient httpClient) throws IOException, InterruptedException {
+    private <T> Object request(String url,
+                               HttpMethod method,
+                               boolean form,
+                               Class<?> returnType,
+                               Class<T> typeArgument,
+                               Map<String, String> headMap,
+                               Map<String, String> paramMap,
+                               Object bodyObject,
+                               HttpClientInterceptor interceptor,
+                               MultipartData multipartData,
+                               HttpClient httpClient) throws IOException, InterruptedException {
         HttpRequestClient httpRequestClient = HttpBootStrap.getHttpRequestClient();
         if (returnType.isAssignableFrom(CompletableFuture.class)) {
             //异步
@@ -60,9 +77,23 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
         }
     }
 
-    private static Object sync(String url, HttpMethod method, boolean form, Class<?> returnType, Map<String, String> headMap,
-                               Map<String, String> paramMap, Object bodyObject, HttpClientInterceptor interceptor, MultipartData multipartData,
-                               HttpClient httpClient, HttpRequestClient httpRequestClient) throws IOException, InterruptedException {
+    private static Object sync(String url,
+                               HttpMethod method,
+                               boolean form,
+                               Class<?> returnType,
+                               Map<String, String> headMap,
+                               Map<String, String> paramMap,
+                               Object bodyObject,
+                               HttpClientInterceptor interceptor,
+                               MultipartData multipartData,
+                               HttpClient httpClient,
+                               HttpRequestClient httpRequestClient) throws IOException, InterruptedException {
+        if (form) {
+            return httpRequestClient.formSync(method, url, headMap, bodyObject, returnType, interceptor, httpClient);
+        }
+        if (Objects.nonNull(multipartData) && !multipartData.isFileDownload()) {
+            return httpRequestClient.fileSync(method, url, headMap, bodyObject, returnType, interceptor, multipartData, httpClient);
+        }
         switch (method) {
             case GET -> {
                 return httpRequestClient.getSync(url, headMap, paramMap, returnType, interceptor, httpClient, multipartData);
@@ -71,16 +102,13 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
                 return httpRequestClient.deleteSync(url, headMap, paramMap, returnType, interceptor, httpClient);
             }
             case POST -> {
-                if (form) {
-                    return httpRequestClient.formSync(url, headMap, bodyObject, returnType, interceptor, httpClient);
-                }
-                if (Objects.nonNull(multipartData)) {
-                    return httpRequestClient.fileSync(url, headMap, bodyObject, returnType, interceptor, multipartData, httpClient);
-                }
                 return httpRequestClient.postSync(url, headMap, bodyObject, returnType, interceptor, httpClient);
             }
             case PUT -> {
                 return httpRequestClient.putSync(url, headMap, bodyObject, returnType, interceptor, httpClient);
+            }
+            case PATCH -> {
+                return httpRequestClient.patchSync(url, headMap, bodyObject, returnType, interceptor, httpClient);
             }
             default -> {
                 return "";
@@ -88,9 +116,23 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
         }
     }
 
-    private static <T> Object async(String url, HttpMethod method, boolean form, Class<T> typeArgument, Map<String, String> headMap,
-                                    Map<String, String> paramMap, Object bodyObject, HttpClientInterceptor interceptor, MultipartData multipartData,
-                                    HttpClient httpClient, HttpRequestClient httpRequestClient) {
+    private static <T> Object async(String url,
+                                    HttpMethod method,
+                                    boolean form,
+                                    Class<T> typeArgument,
+                                    Map<String, String> headMap,
+                                    Map<String, String> paramMap,
+                                    Object bodyObject,
+                                    HttpClientInterceptor interceptor,
+                                    MultipartData multipartData,
+                                    HttpClient httpClient,
+                                    HttpRequestClient httpRequestClient) {
+        if (form) {
+            return httpRequestClient.formAsync(method, url, headMap, bodyObject, typeArgument, interceptor, httpClient);
+        }
+        if (Objects.nonNull(multipartData) && !multipartData.isFileDownload()) {
+            return httpRequestClient.fileAsync(method, url, headMap, bodyObject, typeArgument, interceptor, multipartData, httpClient);
+        }
         switch (method) {
             case GET -> {
                 return httpRequestClient.getAsync(url, headMap, paramMap, typeArgument, interceptor, httpClient, multipartData);
@@ -99,16 +141,13 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
                 return httpRequestClient.deleteAsync(url, headMap, paramMap, typeArgument, interceptor, httpClient);
             }
             case POST -> {
-                if (form) {
-                    return httpRequestClient.formAsync(url, headMap, bodyObject, typeArgument, interceptor, httpClient);
-                }
-                if (Objects.nonNull(multipartData)) {
-                    return httpRequestClient.fileAsync(url, headMap, bodyObject, typeArgument, interceptor, multipartData, httpClient);
-                }
                 return httpRequestClient.postAsync(url, headMap, bodyObject, typeArgument, interceptor, httpClient);
             }
             case PUT -> {
                 return httpRequestClient.putAsync(url, headMap, bodyObject, typeArgument, interceptor, httpClient);
+            }
+            case PATCH -> {
+                return httpRequestClient.patchAsync(url, headMap, bodyObject, typeArgument, interceptor, httpClient);
             }
             default -> {
                 return "";

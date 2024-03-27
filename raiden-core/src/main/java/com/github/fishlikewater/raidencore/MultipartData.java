@@ -42,6 +42,8 @@ public class MultipartData {
 
     private Path path;
 
+    private boolean fileDownload;
+
     private OpenOption[] openOptions = new OpenOption[]{CREATE, WRITE};
 
     private MultipartData(String[] paths) {
@@ -66,6 +68,8 @@ public class MultipartData {
     }
 
     public static MultipartData ofFileDownload(Path path, OpenOption... openOptions) {
-        return new MultipartData(path, openOptions);
+        MultipartData multipartData = new MultipartData(path, openOptions);
+        multipartData.setFileDownload(true);
+        return multipartData;
     }
 }

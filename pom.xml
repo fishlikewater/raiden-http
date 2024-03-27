@@ -6,7 +6,6 @@
     <artifactId>raiden</artifactId>
     <version>${raiden.version}</version>
     <packaging>pom</packaging>
-
     <name>raiden</name>
 
     <modules>
@@ -18,6 +17,7 @@
     <properties>
         <raiden.version>1.0.0</raiden.version>
         <lombok.version>1.18.30</lombok.version>
+        <spring.boot.version>3.2.3</spring.boot.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.release>21</maven.compiler.release>
@@ -76,6 +76,18 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

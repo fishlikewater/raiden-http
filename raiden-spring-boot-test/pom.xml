@@ -11,11 +11,6 @@
     <name>raiden-spring-boot-test</name>
     <description>raiden-spring-boot-test</description>
 
-
-    <properties>
-        <spring.boot.version>3.2.3</spring.boot.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,18 +24,7 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
+
     </build>
 </project>
