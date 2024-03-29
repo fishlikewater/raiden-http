@@ -16,6 +16,7 @@
 package com.github.fishlikewater.test.init;
 
 import com.github.fishlikewater.raidencore.MultipartData;
+import com.github.fishlikewater.test.domain.DemoPayload;
 import com.github.fishlikewater.test.remote.DemoFile;
 import com.github.fishlikewater.test.remote.DemoLocal;
 import com.github.fishlikewater.test.remote.DemoRemote;
@@ -49,8 +50,8 @@ public class DemoCommandLine implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws InterruptedException {
-        this.testRemote();
-        //this.testLocal();
+        //this.testRemote();
+        this.testLocal();
         //this.testFile();
         Thread.sleep(2000);
         System.exit(0);
@@ -58,7 +59,7 @@ public class DemoCommandLine implements CommandLineRunner {
 
     private void testFile() {
         // 文件下载
-        MultipartData fileDownload = MultipartData.ofFileDownload(Path.of("/file/1.png"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        MultipartData fileDownload = MultipartData.ofFileDownload(Path.of("/file/2.png"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
         Path download = demoFile.download(fileDownload);
         log.info(download.toString());
 
@@ -91,6 +92,7 @@ public class DemoCommandLine implements CommandLineRunner {
         Map<String, Object> map = new HashMap<>(16);
         map.put("username", "zs");
         map.put("password", "xxx");
+        DemoPayload payload = new DemoPayload("fish", "111111");
        /* String demo = demoLocal.demo(map);
         System.out.println(demo);
 
@@ -99,6 +101,11 @@ public class DemoCommandLine implements CommandLineRunner {
         demoLocal.demo(map, headWrap);*/
 
         // 测试form
-        log.info(demoLocal.form(map));
+        String s = demoLocal.form(payload);
+        log.info(s);
+
+        // PATCH
+        //String patch = demoLocal.patch(payload);
+        //log.info(patch);
     }
 }

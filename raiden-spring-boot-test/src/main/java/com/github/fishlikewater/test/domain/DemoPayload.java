@@ -15,7 +15,10 @@
  */
 package com.github.fishlikewater.test.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -28,6 +31,9 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DemoPayload implements Serializable {
 
     @Serial

@@ -38,7 +38,7 @@ public class SourceHttpClientRegistry {
 
     public SourceHttpClientRegistry(List<SourceHttpClientRegister> registrars) {
         this.registrars = registrars;
-        this.httpClientMap = new HashMap<>(4);
+        this.httpClientMap = new HashMap<>(16);
     }
 
     public void init() {

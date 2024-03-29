@@ -18,7 +18,6 @@ package com.github.fishlikewater.test.controller;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.IdUtil;
 import com.github.fishlikewater.test.domain.DemoPayload;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * {@code DemoController}
@@ -40,6 +38,11 @@ import java.util.Objects;
 @RestController
 public class DemoController {
 
+    @PatchMapping("/patch")
+    public String patch(@RequestBody DemoPayload payload) {
+        System.out.println(payload);
+        return "patch";
+    }
 
     @PostMapping("/demo")
     public String demo(@RequestBody DemoPayload payload, @RequestHeader("customer") String customer) {
@@ -50,6 +53,12 @@ public class DemoController {
 
     @PostMapping(value = "/form", consumes = "application/x-www-form-urlencoded;charset=utf-8")
     public String form(DemoPayload payload) {
+        System.out.println(payload);
+        return "ok";
+    }
+
+    @GetMapping(value = "/form", consumes = "application/x-www-form-urlencoded;charset=utf-8")
+    public String form2(DemoPayload payload) {
         System.out.println(payload);
         return "ok";
     }
@@ -65,16 +74,16 @@ public class DemoController {
         final String localFileDir = "/file";
         final String yearAndMonth = DateUtil.format(LocalDateTime.now(), DatePattern.SIMPLE_MONTH_PATTERN);
         final File file1 = new File(localFileDir + File.separator + yearAndMonth + File.separator + fileName);
-        if (!file1.exists()){
+        if (!file1.exists()) {
             final File parentFile = file1.getParentFile();
-            if (!parentFile.exists()){
+            if (!parentFile.exists()) {
                 boolean mkdir = parentFile.mkdirs();
-                if (!mkdir){
+                if (!mkdir) {
                     throw new RuntimeException("创建文件夹失败");
                 }
             }
             final boolean newFile = file1.createNewFile();
-            if (newFile){
+            if (newFile) {
                 FileUtil.writeBytes(file.getBytes(), file1);
             }
         }
