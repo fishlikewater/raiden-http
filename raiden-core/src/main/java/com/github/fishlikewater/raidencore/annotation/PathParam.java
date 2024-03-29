@@ -15,10 +15,11 @@
  */
 package com.github.fishlikewater.raidencore.annotation;
 
+import cn.hutool.core.annotation.Alias;
+
 import java.lang.annotation.*;
 
 /**
- *
  * @author fishlikewater@126.com
  * @date 2023年09月28日 20:30
  * @since 1.0.0
@@ -28,7 +29,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface PathParam {
 
+    @Alias("name")
     String value() default "";
-
-    String name() default "";
 }

@@ -15,6 +15,7 @@
  */
 package com.github.fishlikewater.raidencore.proxy;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.StrFormatter;
 import cn.hutool.core.util.ObjectUtil;
@@ -52,9 +53,9 @@ public interface InterfaceProxy {
     /**
      * 处理请求
      *
-     * @param method 方法
-     * @param args 参数
-     * @param httpClientProcessor {@code HttpClientProcessor}
+     * @param method                方法
+     * @param args                  参数
+     * @param httpClientProcessor   {@code HttpClientProcessor}
      * @param httpClientBeanFactory {@code HttpClientBeanFactory}
      * @return Object
      */
@@ -83,7 +84,7 @@ public interface InterfaceProxy {
             for (int i = 0; i < parameters.length; i++) {
                 Param param = parameters[i].getAnnotation(Param.class);
                 if (ObjectUtil.isNotNull(param)) {
-                    paramMap.put(param.value(), (String) args[i]);
+                    this.handleParam(paramMap, param, args[i]);
                     continue;
                 }
                 PathParam pathParam = parameters[i].getAnnotation(PathParam.class);
@@ -110,6 +111,24 @@ public interface InterfaceProxy {
         }
         return httpClientProcessor.handler(httpMethod, headMap, returnType, typeArgument, form, url, paramMap,
                 bodyObject, interceptor, multipartData, httpClient);
+    }
+
+    /**
+     * 处理参数
+     *
+     * @param paramMap 参数
+     * @param param    参数注解
+     * @param arg      参数
+     */
+    default void handleParam(Map<String, String> paramMap, Param param, Object arg) {
+        if (arg instanceof String || arg instanceof Number) {
+            paramMap.put(param.value(), arg.toString());
+        } else {
+            Map<String, Object> map = BeanUtil.beanToMap(arg, true, true);
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                paramMap.put(entry.getKey(), entry.getValue().toString());
+            }
+        }
     }
 
     /**

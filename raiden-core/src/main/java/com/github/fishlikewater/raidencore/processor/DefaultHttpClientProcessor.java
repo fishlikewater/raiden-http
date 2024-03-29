@@ -89,7 +89,7 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
                                HttpClient httpClient,
                                HttpRequestClient httpRequestClient) throws IOException, InterruptedException {
         if (form) {
-            return httpRequestClient.formSync(method, url, headMap, bodyObject, returnType, interceptor, httpClient);
+            return httpRequestClient.formSync(method, url, headMap, paramMap, bodyObject, returnType, interceptor, httpClient);
         }
         if (Objects.nonNull(multipartData) && !multipartData.isFileDownload()) {
             return httpRequestClient.fileSync(method, url, headMap, bodyObject, returnType, interceptor, multipartData, httpClient);
@@ -128,7 +128,7 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
                                     HttpClient httpClient,
                                     HttpRequestClient httpRequestClient) {
         if (form) {
-            return httpRequestClient.formAsync(method, url, headMap, bodyObject, typeArgument, interceptor, httpClient);
+            return httpRequestClient.formAsync(method, url, headMap, paramMap, bodyObject, typeArgument, interceptor, httpClient);
         }
         if (Objects.nonNull(multipartData) && !multipartData.isFileDownload()) {
             return httpRequestClient.fileAsync(method, url, headMap, bodyObject, typeArgument, interceptor, multipartData, httpClient);

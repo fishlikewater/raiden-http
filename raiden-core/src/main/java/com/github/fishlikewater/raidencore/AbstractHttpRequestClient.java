@@ -646,6 +646,7 @@ public abstract class AbstractHttpRequestClient {
      * @param method       请求方法
      * @param url          请求地址
      * @param headMap      请求头
+     * @param paramMap     请求参数
      * @param bodyObject   请求参数
      * @param typeArgument 返回类型
      * @param interceptor  拦截器
@@ -655,6 +656,7 @@ public abstract class AbstractHttpRequestClient {
     abstract <T> CompletableFuture<T> formAsync(HttpMethod method,
                                                 String url,
                                                 Map<String, String> headMap,
+                                                Map<String, String> paramMap,
                                                 Object bodyObject,
                                                 Class<T> typeArgument,
                                                 HttpClientInterceptor interceptor,
@@ -666,6 +668,7 @@ public abstract class AbstractHttpRequestClient {
      * @param method       请求方法
      * @param url          请求地址
      * @param headMap      请求头
+     * @param paramMap     请求参数
      * @param bodyObject   请求参数
      * @param typeArgument 返回类型
      * @param httpClient   http客户端
@@ -674,6 +677,7 @@ public abstract class AbstractHttpRequestClient {
     abstract <T> CompletableFuture<T> formAsync(HttpMethod method,
                                                 String url,
                                                 Map<String, String> headMap,
+                                                Map<String, String> paramMap,
                                                 Object bodyObject,
                                                 Class<T> typeArgument,
                                                 HttpClient httpClient);
@@ -684,6 +688,7 @@ public abstract class AbstractHttpRequestClient {
      * @param method      请求方法
      * @param url         请求地址
      * @param headMap     请求头
+     * @param paramMap    请求参数
      * @param bodyObject  请求参数
      * @param returnType  返回类型
      * @param interceptor 拦截器
@@ -695,6 +700,7 @@ public abstract class AbstractHttpRequestClient {
     abstract <T> T formSync(HttpMethod method,
                             String url,
                             Map<String, String> headMap,
+                            Map<String, String> paramMap,
                             Object bodyObject,
                             Class<T> returnType,
                             HttpClientInterceptor interceptor,
@@ -706,6 +712,7 @@ public abstract class AbstractHttpRequestClient {
      * @param method     请求方法
      * @param url        请求地址
      * @param headMap    请求头
+     * @param paramMap   请求参数
      * @param bodyObject 请求参数
      * @param returnType 返回类型
      * @param httpClient http客户端
@@ -716,6 +723,7 @@ public abstract class AbstractHttpRequestClient {
     abstract <T> T formSync(HttpMethod method,
                             String url,
                             Map<String, String> headMap,
+                            Map<String, String> paramMap,
                             Object bodyObject,
                             Class<T> returnType,
                             HttpClient httpClient) throws IOException, InterruptedException;

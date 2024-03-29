@@ -421,6 +421,7 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
     public <T> CompletableFuture<T> formAsync(HttpMethod method,
                                               String url,
                                               Map<String, String> headMap,
+                                              Map<String, String> paramMap,
                                               Object bodyObject,
                                               Class<T> typeArgument,
                                               HttpClientInterceptor interceptor,
@@ -428,7 +429,7 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
         if (Objects.isNull(httpClient)) {
             httpClient = HttpBootStrap.getHttpClient("default");
         }
-        HttpRequest httpRequest = getFormHttpRequest(method, url, headMap, bodyObject, interceptor);
+        HttpRequest httpRequest = getFormHttpRequest(method, url, headMap, paramMap, bodyObject, interceptor);
         return handlerAsync(httpRequest, typeArgument, interceptor, null, httpClient);
     }
 
@@ -436,15 +437,17 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
     public <T> CompletableFuture<T> formAsync(HttpMethod method,
                                               String url,
                                               Map<String, String> headMap,
+                                              Map<String, String> paramMap,
                                               Object bodyObject, Class<T> typeArgument,
                                               HttpClient httpClient) {
-        return formAsync(method, url, headMap, bodyObject, typeArgument, null, httpClient);
+        return formAsync(method, url, headMap, paramMap, bodyObject, typeArgument, null, httpClient);
     }
 
     @Override
     public <T> T formSync(HttpMethod method,
                           String url,
                           Map<String, String> headMap,
+                          Map<String, String> paramMap,
                           Object bodyObject,
                           Class<T> returnType,
                           HttpClientInterceptor interceptor,
@@ -452,7 +455,7 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
         if (Objects.isNull(httpClient)) {
             httpClient = HttpBootStrap.getHttpClient("default");
         }
-        HttpRequest httpRequest = getFormHttpRequest(method, url, headMap, bodyObject, interceptor);
+        HttpRequest httpRequest = getFormHttpRequest(method, url, headMap, paramMap, bodyObject, interceptor);
         return handlerSync(httpRequest, returnType, interceptor, null, httpClient);
     }
 
@@ -460,10 +463,11 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
     public <T> T formSync(HttpMethod method,
                           String url,
                           Map<String, String> headMap,
+                          Map<String, String> paramMap,
                           Object bodyObject,
                           Class<T> returnType,
                           HttpClient httpClient) throws IOException, InterruptedException {
-        return formSync(method, url, headMap, bodyObject, returnType, null, httpClient);
+        return formSync(method, url, headMap, paramMap, bodyObject, returnType, null, httpClient);
     }
 
     private HttpRequest getHttpRequest(HttpMethod method,
@@ -508,11 +512,16 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
     private HttpRequest getFormHttpRequest(HttpMethod method,
                                            String url,
                                            Map<String, String> headMap,
+                                           Map<String, String> paramMap,
                                            Object bodyObject,
                                            HttpClientInterceptor interceptor) {
-        HttpRequest.BodyPublisher requestBody = null;
+        if (Objects.nonNull(paramMap) && !paramMap.isEmpty()) {
+            url = this.getRequestUrl(url, paramMap);
+        }
+
+        HttpRequest.BodyPublisher requestBody;
+        StringBuilder params = new StringBuilder("rd=").append(Math.random());
         if (Objects.nonNull(bodyObject)) {
-            StringBuilder params = new StringBuilder("rd=").append(Math.random());
             if (bodyObject instanceof Map<?, ?> map) {
                 for (Map.Entry<?, ?> item : map.entrySet()) {
                     String param = STR."&\{item.getKey().toString().trim()}=\{item.getValue().toString().trim()}";
@@ -525,8 +534,8 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
                     params.append(param);
                 }
             }
-            requestBody = HttpRequest.BodyPublishers.ofString(params.toString());
         }
+        requestBody = HttpRequest.BodyPublishers.ofString(params.toString());
         final HttpRequest.Builder builder = HttpRequest.newBuilder().method(method.name(), requestBody).uri(URI.create(url));
         if (Objects.nonNull(headMap)) {
             headMap.forEach(builder::header);

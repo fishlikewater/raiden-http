@@ -30,6 +30,4 @@ import java.lang.annotation.*;
 public @interface Param {
 
     String value() default "";
-
-    String name() default "";
 }
