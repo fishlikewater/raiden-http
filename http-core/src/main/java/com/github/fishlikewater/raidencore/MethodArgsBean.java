@@ -18,6 +18,7 @@ package com.github.fishlikewater.raidencore;
 import com.github.fishlikewater.raidencore.enums.HttpMethod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.Map;

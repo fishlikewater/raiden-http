@@ -18,6 +18,7 @@ package com.github.fishlikewater.raidencore.proxy;
 import com.github.fishlikewater.raidencore.processor.HttpClientBeanFactory;
 import com.github.fishlikewater.raidencore.processor.HttpClientProcessor;
 import lombok.Setter;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;

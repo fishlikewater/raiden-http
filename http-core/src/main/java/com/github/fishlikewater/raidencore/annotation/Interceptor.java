@@ -15,23 +15,24 @@
  */
 package com.github.fishlikewater.raidencore.annotation;
 
-import com.github.fishlikewater.raidencore.enums.HttpMethod;
+import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
+
 import java.lang.annotation.*;
 
 /**
+ * <p>
+ *  拦截器注解
+ * </p>
  *
  * @author fishlikewater@126.com
  * @date 2023年09月28日 20:30
  * @since 1.0.0
  **/
-@Target({ElementType.METHOD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface RequireLine {
+public @interface Interceptor {
 
-    /** 请求方式 默认GET*/
-    HttpMethod method() default HttpMethod.GET;
-
-    /** 请求路径*/
-    String path() default "";
+    /** 拦截器类*/
+    Class<? extends HttpClientInterceptor> value();
 }

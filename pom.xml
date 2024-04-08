@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.fishlikewater</groupId>
-    <artifactId>raiden</artifactId>
+    <artifactId>raiden-http</artifactId>
     <version>${raiden.version}</version>
     <packaging>pom</packaging>
     <name>raiden</name>
 
     <modules>
-        <module>raiden-core</module>
+        <module>http-core</module>
         <module>raiden-spring-boot-starter</module>
         <module>raiden-spring-boot-test</module>
     </modules>
