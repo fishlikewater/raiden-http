@@ -22,8 +22,8 @@ import org.springframework.context.annotation.Configuration;
  * 启动注册及配置
  *
  * @author fishlikewater@126.com
- * @date 2024/03/20
- * @since 1.0.0
+ * @since 2024/03/20
+ * @version 1.0.0
  */
 @Configuration
 public class AutoConfig {

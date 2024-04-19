@@ -21,8 +21,8 @@ package com.github.fishlikewater.raidencore.source;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月23日 10:14
- * @since 1.0.0
+ * @since 2023年09月23日 10:14
+ * @version 1.0.0
  **/
 public interface SourceHttpClientRegister {
 

@@ -21,8 +21,8 @@ import com.github.fishlikewater.raidencore.MethodArgsBean;
  * 请求之前处理
  *
  * @author fishlikewater@126.com
- * @date 2023年09月26日 14:07
- * @since 1.0.0
+ * @since 2023年09月26日 14:07
+ * @version 1.0.0
  **/
 public interface PredRequest {
 

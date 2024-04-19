@@ -26,8 +26,8 @@ import java.lang.reflect.Proxy;
 /**
  *
  * @author fishlikewater@126.com
- * @date 2021年12月26日 13:10
- * @since 1.0.0
+ * @since 2021年12月26日 13:10
+ * @version 1.0.0
  **/
 @Setter
 public class JdkInterfaceProxy  implements InvocationHandler,InterfaceProxy {

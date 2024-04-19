@@ -22,8 +22,8 @@ import lombok.experimental.Accessors;
  * 日志配置
  *
  * @author fishlikewater@126.com
- * @date 2023年09月25日 14:55
- * @since 1.0.0
+ * @since 2023年09月25日 14:55
+ * @version 1.0.0
  **/
 @Data
 @Accessors(chain = true)

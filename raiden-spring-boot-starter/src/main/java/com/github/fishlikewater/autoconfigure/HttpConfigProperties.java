@@ -25,8 +25,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月24日 12:35
- * @since 1.0.0
+ * @since 2023年09月24日 12:35
+ * @version 1.0.0
  **/
 
 @Data

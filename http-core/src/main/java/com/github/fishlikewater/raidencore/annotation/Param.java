@@ -21,8 +21,8 @@ import java.lang.annotation.*;
  * 适用于url上的拼接参数
  *
  * @author fishlikewater@126.com
- * @date 2023年09月28日 20:30
- * @since 1.0.0
+ * @since 2023年09月28日 20:30
+ * @version 1.0.0
  **/
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)

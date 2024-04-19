@@ -29,8 +29,8 @@ import static java.nio.file.StandardOpenOption.WRITE;
  * 文件数据
  *
  * @author fishlikewater@126.com
- * @date 2023年09月26日 16:13
- * @since 1.0.0
+ * @since 2023年09月26日 16:13
+ * @version 1.0.0
  **/
 @Data
 @Accessors(chain = true)

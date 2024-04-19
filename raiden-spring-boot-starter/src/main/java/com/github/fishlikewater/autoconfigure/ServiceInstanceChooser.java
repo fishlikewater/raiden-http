@@ -21,8 +21,8 @@ import java.net.URI;
  * 注册服务选择
  *
  * @author fishlikewater@126.com
- * @date 2023年09月26日 14:33
- * @since 1.0.0
+ * @since 2023年09月26日 14:33
+ * @version 1.0.0
  **/
 @FunctionalInterface
 public interface ServiceInstanceChooser {

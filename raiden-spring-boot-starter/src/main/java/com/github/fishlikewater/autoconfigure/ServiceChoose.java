@@ -26,8 +26,8 @@ import java.net.URI;
  * 注册服务名处理
  *
  * @author fishlikewater@126.com
- * @date 2023年09月26日 14:44
- * @since 1.0.0
+ * @since 2023年09月26日 14:44
+ * @version 1.0.0
  **/
 @RequiredArgsConstructor
 public class ServiceChoose implements PredRequest {

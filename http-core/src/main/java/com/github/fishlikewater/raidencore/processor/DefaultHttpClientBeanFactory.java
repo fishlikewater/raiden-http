@@ -40,8 +40,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月23日 20:39
- * @since 1.0.0
+ * @since 2023年09月23日 20:39
+ * @version 1.0.0
  **/
 @Slf4j
 public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {

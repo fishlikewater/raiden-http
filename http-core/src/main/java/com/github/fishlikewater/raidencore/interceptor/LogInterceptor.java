@@ -36,8 +36,8 @@ import java.util.concurrent.Flow;
  * 日志拦截器配置
  *
  * @author fishlikewater@126.com
- * @date 2023年09月25日 15:00
- * @since 1.0.0
+ * @since 2023年09月25日 15:00
+ * @version 1.0.0
  **/
 @Slf4j
 public class LogInterceptor implements HttpClientInterceptor {

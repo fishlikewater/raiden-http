@@ -33,14 +33,15 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
+
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
  * @author fishlikewater@126.com
- * @date 2021年12月26日 13:28
- * @since 1.0.0
+ * @since 2021年12月26日 13:28
+ * @version 1.0.0
  **/
 @Slf4j
 public class HttpServerScannerRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, BeanClassLoaderAware, EnvironmentAware {

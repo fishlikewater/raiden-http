@@ -26,6 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Role;
+
 import java.net.http.HttpClient;
 import java.time.Duration;
 import java.util.List;
@@ -36,8 +37,8 @@ import java.util.List;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月24日 12:37
- * @since 1.0.0
+ * @since 2023年09月24日 12:37
+ * @version 1.0.0
  **/
 @Slf4j
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

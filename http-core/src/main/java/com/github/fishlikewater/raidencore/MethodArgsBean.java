@@ -29,8 +29,8 @@ import java.util.Map;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月24日 9:37
- * @since 1.0.0
+ * @since 2023年09月24日 9:37
+ * @version 1.0.0
  **/
 @Data
 @AllArgsConstructor

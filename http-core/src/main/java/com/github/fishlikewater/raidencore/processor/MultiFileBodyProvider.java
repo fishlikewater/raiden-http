@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
  * 文件上传处理器
  *
  * @author fishlikewater@126.com
- * @date 2023年09月27日 9:38
- * @since 1.0.0
+ * @since 2023年09月27日 9:38
+ * @version 1.0.0
  **/
 public class MultiFileBodyProvider implements HttpRequest.BodyPublisher {
 

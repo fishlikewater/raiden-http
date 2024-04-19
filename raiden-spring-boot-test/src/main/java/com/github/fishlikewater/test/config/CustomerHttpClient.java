@@ -19,6 +19,7 @@ import cn.hutool.core.net.DefaultTrustManager;
 import com.github.fishlikewater.raidencore.source.SourceHttpClientRegister;
 import com.github.fishlikewater.raidencore.source.SourceHttpClientRegistry;
 import org.springframework.stereotype.Component;
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -30,7 +31,7 @@ import java.time.Duration;
  * 注册自定义的httpclient 在remote接口中可以使用命名指定
  *
  * @author fishlikewater@126.com
- * @date 2024/03/15
+ * @since 2024/03/15
  */
 @Component
 public class CustomerHttpClient implements SourceHttpClientRegister {

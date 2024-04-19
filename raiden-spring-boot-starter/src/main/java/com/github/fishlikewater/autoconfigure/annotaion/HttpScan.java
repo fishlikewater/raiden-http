@@ -24,8 +24,8 @@ import java.lang.annotation.*;
  * 包扫描
  *
  * @author fishlikewater@126.com
- * @date 2023年09月22日 12:32
- * @since 1.0.0
+ * @since 2023年09月22日 12:32
+ * @version 1.0.0
  **/
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

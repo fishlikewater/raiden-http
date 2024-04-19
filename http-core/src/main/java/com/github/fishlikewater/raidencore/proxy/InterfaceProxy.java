@@ -45,8 +45,8 @@ import java.util.Objects;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月23日 18:30
- * @since 1.0.0
+ * @since 2023年09月23日 18:30
+ * @version 1.0.0
  **/
 public interface InterfaceProxy {
 

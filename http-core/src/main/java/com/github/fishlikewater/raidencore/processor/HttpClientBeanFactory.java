@@ -26,8 +26,8 @@ import java.lang.reflect.Method;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月23日 20:25
- * @since 1.0.0
+ * @since 2023年09月23日 20:25
+ * @version 1.0.0
  **/
 public interface HttpClientBeanFactory {
 

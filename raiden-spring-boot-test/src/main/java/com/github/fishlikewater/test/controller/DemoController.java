@@ -32,8 +32,8 @@ import java.time.LocalDateTime;
  * 测试controller
  *
  * @author fishlikewater@126.com
- * @date 2024/03/19
- * @since 1.0.0
+ * @since 2024/03/19
+ * @version 1.0.0
  */
 @RestController
 public class DemoController {

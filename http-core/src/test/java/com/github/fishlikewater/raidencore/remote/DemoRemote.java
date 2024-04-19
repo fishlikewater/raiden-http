@@ -26,8 +26,8 @@ import java.util.concurrent.CompletableFuture;
  * {@code DemoRemote}
  *
  * @author fishlikewater@126.com
- * @date 2024/03/15
- * @since 1.0.0
+ * @since 2024/03/15
+ * @version 1.0.0
  * <p>
  * 这里使用自定义httpclient 如不设置 则会使用默认的httpclient 默认的httpclient 访问https时会校验证书
  */

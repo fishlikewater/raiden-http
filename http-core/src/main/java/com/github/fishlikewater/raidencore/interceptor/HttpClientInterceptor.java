@@ -24,8 +24,8 @@ import java.net.http.HttpResponse;
  * </p>
  *
  * @author fishlikewater@126.com
- * @date 2023年09月22日 19:07
- * @since 1.0.0
+ * @since 2023年09月22日 19:07
+ * @version 1.0.0
  **/
 public interface HttpClientInterceptor {
 

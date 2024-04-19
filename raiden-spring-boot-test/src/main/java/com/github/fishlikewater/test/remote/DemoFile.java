@@ -28,8 +28,8 @@ import java.util.concurrent.CompletableFuture;
  * 测试文件
  *
  * @author fishlikewater@126.com
- * @date 2024/03/20
- * @since 1.0.0
+ * @since 2024/03/20
+ * @version 1.0.0
  */
 @HttpServer(url = "http://127.0.0.1:8080")
 public interface DemoFile {

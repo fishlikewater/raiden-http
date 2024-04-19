@@ -28,8 +28,8 @@ import java.util.regex.Pattern;
 /**
  *
  * @author fishlikewater@126.com
- * @date 2023年09月25日 16:46
- * @since 1.0.0
+ * @since 2023年09月25日 16:46
+ * @version 1.0.0
  **/
 @Slf4j
 public class ByteBufferUtils {

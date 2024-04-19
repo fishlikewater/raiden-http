@@ -27,8 +27,8 @@ import java.io.Serializable;
  * {@code DemoPayload}
  *
  * @author zhangxiang
- * @date 2024/03/19
- * @since 1.0.0
+ * @since 2024/03/19
+ * @version 1.0.0
  */
 @Data
 @Builder

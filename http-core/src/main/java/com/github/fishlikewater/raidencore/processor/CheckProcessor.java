@@ -39,8 +39,8 @@ import java.util.TreeSet;
  * 编译检查
  *
  * @author zhangxiang
- * @date 2024/03/19
- * @since 1.0.0
+ * @since 2024/03/19
+ * @version 1.0.0
  */
 public class CheckProcessor extends AbstractProcessor {
 

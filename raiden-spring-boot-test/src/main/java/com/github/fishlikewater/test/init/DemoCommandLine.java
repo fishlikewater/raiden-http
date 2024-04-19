@@ -35,8 +35,8 @@ import java.util.Map;
  * 测试接口调用
  *
  * @author fishlikewater@126.com
- * @date 2024/03/20
- * @since 1.0.0
+ * @since 2024/03/20
+ * @version 1.0.0
  */
 @Component
 @Slf4j

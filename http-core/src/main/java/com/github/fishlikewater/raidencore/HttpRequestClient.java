@@ -41,8 +41,8 @@ import java.util.concurrent.CompletableFuture;
  * {@code HttpRequestClient}
  *
  * @author zhangxiang
- * @date 2023/11/27
- * @since 1.0.0
+ * @since 2023/11/27
+ * @version 1.0.0
  */
 @Slf4j
 public class HttpRequestClient extends AbstractHttpRequestClient {

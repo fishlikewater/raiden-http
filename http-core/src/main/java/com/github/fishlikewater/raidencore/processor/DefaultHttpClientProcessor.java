@@ -33,8 +33,8 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author fishlikewater@126.com
- * @date 2021年12月26日 18:59
- * @since 1.0.0
+ * @since 2021年12月26日 18:59
+ * @version 1.0.0
  **/
 @Slf4j
 public class DefaultHttpClientProcessor implements HttpClientProcessor {

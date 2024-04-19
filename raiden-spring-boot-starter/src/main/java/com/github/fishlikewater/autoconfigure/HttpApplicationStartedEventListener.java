@@ -21,14 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+
 import java.net.http.HttpClient;
 
 /**
  * 接口注入
  *
  * @author fishlikewater@126.com
- * @date 2023年09月22日 11:12
- * @since 1.0.0
+ * @since 2023年09月22日 11:12
+ * @version 1.0.0
  **/
 @Component
 @Slf4j

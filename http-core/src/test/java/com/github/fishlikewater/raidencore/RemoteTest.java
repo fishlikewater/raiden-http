@@ -26,8 +26,8 @@ import java.net.http.HttpClient;
  * {@code RemoteTest}
  *
  * @author fishlikewater@126.com
- * @date 2024/03/20
- * @since 1.0.0
+ * @since 2024/03/20
+ * @version 1.0.0
  */
 public class RemoteTest {
 

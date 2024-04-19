@@ -20,8 +20,8 @@ import java.lang.annotation.*;
 /**
  *
  * @author fishlikewater@126.com
- * @date 2023年09月28日 20:30
- * @since 1.0.0
+ * @since 2023年09月28日 20:30
+ * @version 1.0.0
  **/
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

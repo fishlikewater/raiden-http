@@ -26,8 +26,8 @@ import java.util.Map;
 /**
  *
  * @author fishlikewater@126.com
- * @date 2021年12月26日 18:42
- * @since 1.0.0
+ * @since 2021年12月26日 18:42
+ * @version 1.0.0
  **/
 public interface HttpClientProcessor {
 
@@ -45,7 +45,7 @@ public interface HttpClientProcessor {
      * @param interceptor 拦截器
      * @param multipartData 文件数据
      * @param httpClient 客户端
-     * @date 2023/9/26 14:21
+     * @since 2023/9/26 14:21
      * @return java.lang.Object
      */
     Object handler(HttpMethod method, Map<String, String> headMap, Class<?> returnType, Type typeArgument, boolean form,

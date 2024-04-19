@@ -18,6 +18,7 @@ package com.github.fishlikewater.autoconfigure.proxy;
 import com.github.fishlikewater.raidencore.proxy.JdkInterfaceProxy;
 import lombok.Setter;
 import org.springframework.beans.factory.FactoryBean;
+
 import java.lang.reflect.Proxy;
 
 /**
@@ -26,7 +27,7 @@ import java.lang.reflect.Proxy;
  * </p>
  *
  * @author fishlikewater@126.com
- * @since 1.0.0
+ * @version 1.0.0
  **/
 public class SpringJdkInterfaceProxy<T> extends JdkInterfaceProxy implements FactoryBean<T> {
 
