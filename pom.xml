@@ -36,23 +36,23 @@
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
     </properties>
 
-    <url>https://github.com/fishlikewater/raiden</url>
+    <url>https://github.com/fishlikewater/raiden-http</url>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>https://github.com/fishlikewater/raiden/blob/master/LICENSE</url>
+            <url>https://github.com/fishlikewater/raiden-http/blob/master/LICENSE</url>
         </license>
     </licenses>
 
     <scm>
-        <url>https://github.com/fishlikewater/raiden</url>
-        <connection>https://github.com/fishlikewater/raiden.git</connection>
+        <url>https://github.com/fishlikewater/raiden-http</url>
+        <connection>https://github.com/fishlikewater/raiden-http.git</connection>
     </scm>
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/fishlikewater/raiden/issues</url>
+        <url>https://github.com/fishlikewater/raiden-http/issues</url>
     </issueManagement>
 
     <developers>
