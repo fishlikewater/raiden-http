@@ -8,8 +8,8 @@
         <version>${raiden.version}</version>
     </parent>
     <artifactId>raiden-http-spring-boot-starter</artifactId>
-    <name>raiden-spring-boot-starter</name>
-    <description>raiden-spring-boot-starter</description>
+    <name>raiden-http-spring-boot-starter</name>
+    <description>raiden-http-spring-boot-starter</description>
 
     <dependencies>
 
