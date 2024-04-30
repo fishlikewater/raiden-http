@@ -13,20 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.fishlikewater.test;
+package com.github.fishlikewater.raiden.http.core.interceptor;
 
-import com.github.fishlikewater.raiden.http.autoconfigure.annotaion.HttpScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 /**
+ * <p>
+ *  请求拦截器
+ * </p>
+ *
  * @author fishlikewater@126.com
- */
-@SpringBootApplication
-@HttpScan("com.github.fishlikewater.test")
-public class RaidenSpringBootTestApplication {
+ * @since 2023年09月22日 19:07
+ * @version 1.0.0
+ **/
+public interface HttpClientInterceptor {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RaidenSpringBootTestApplication.class, args);
-    }
+    /**
+     * 发送请求之前
+     *
+     * @param httpRequest 请求数据
+     * @return {@code HttpRequest}
+     */
+    HttpRequest requestBefore(HttpRequest httpRequest);
+
+    /**
+     * 发送请求之后
+     *
+     * @param response 响应
+     * @return {@code HttpResponse}
+     */
+    <T> HttpResponse<T> requestAfter(HttpResponse<T> response);
 }

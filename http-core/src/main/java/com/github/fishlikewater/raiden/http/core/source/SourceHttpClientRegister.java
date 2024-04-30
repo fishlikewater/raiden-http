@@ -13,20 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.fishlikewater.test;
-
-import com.github.fishlikewater.raiden.http.autoconfigure.annotaion.HttpScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package com.github.fishlikewater.raiden.http.core.source;
 
 /**
+ * <p>
+ *     HttpClient 注册
+ * </p>
+ *
  * @author fishlikewater@126.com
- */
-@SpringBootApplication
-@HttpScan("com.github.fishlikewater.test")
-public class RaidenSpringBootTestApplication {
+ * @since 2023年09月23日 10:14
+ * @version 1.0.0
+ **/
+public interface SourceHttpClientRegister {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RaidenSpringBootTestApplication.class, args);
-    }
+    /**
+     * 向#{@link SourceHttpClientRegistry}注册数据
+     *
+     * @param registry SourceHttpClientRegistry
+     */
+    void register(SourceHttpClientRegistry registry);
 }

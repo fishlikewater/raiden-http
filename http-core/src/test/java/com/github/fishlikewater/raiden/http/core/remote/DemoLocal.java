@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.fishlikewater.test.remote;
+package com.github.fishlikewater.raiden.http.core.remote;
 
 import com.github.fishlikewater.raiden.http.core.HeadWrap;
 import com.github.fishlikewater.raiden.http.core.annotation.*;
-import com.github.fishlikewater.test.domain.DemoPayload;
 
 import java.util.Map;
 
@@ -32,6 +31,7 @@ import java.util.Map;
 
 @HttpServer(url = "http://127.0.0.1:8080")
 public interface DemoLocal {
+
 
     /**
      * 测试本地接口
@@ -48,7 +48,7 @@ public interface DemoLocal {
     /**
      * 测试本地接口 请求头为变量时 放在参数中时 参数类型只能为 {@code Map<String, String>} 或者 {@link HeadWrap}
      *
-     * @param map     {@code Map}
+     * @param map {@code Map}
      * @param headMap {@code Map}
      * @return {@code String}
      */
@@ -58,7 +58,7 @@ public interface DemoLocal {
     /**
      * 测试本地接口 请求头为变量时 放在参数中时 参数类型只能为 {@code Map<String, String>} 或者 {@link HeadWrap}
      *
-     * @param map      {@code Map}
+     * @param map {@code Map}
      * @param headWrap {@code HeadWrap}
      * @return {@code String}
      */
@@ -68,30 +68,12 @@ public interface DemoLocal {
     /**
      * 测试form请求
      *
-     * @param payload {@code DemoPayload}
+     * @param map {@code Map}
      * @return {@code String}
      */
     @POST("/form")
     @Form
-    String form(@Body DemoPayload payload);
-
-    /**
-     * 测试form请求
-     *
-     * @param payload {@code DemoPayload}
-     * @return {@code String}
-     */
-    @GET("/form")
-    @Form
-    String form2(@Param DemoPayload payload);
+    String form(@Body Map<String, Object> map);
 
 
-    /**
-     * 测试patch请求
-     *
-     * @param payload {@code DemoPayload}
-     * @return {@code String}
-     */
-    @PATCH("/patch")
-    String patch(@Body DemoPayload payload);
 }

@@ -16,8 +16,8 @@
 package com.github.fishlikewater.test.config;
 
 import cn.hutool.core.net.DefaultTrustManager;
-import com.github.fishlikewater.raidencore.source.SourceHttpClientRegister;
-import com.github.fishlikewater.raidencore.source.SourceHttpClientRegistry;
+import com.github.fishlikewater.raiden.http.core.source.SourceHttpClientRegister;
+import com.github.fishlikewater.raiden.http.core.source.SourceHttpClientRegistry;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;

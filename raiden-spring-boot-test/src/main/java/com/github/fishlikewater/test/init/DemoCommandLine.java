@@ -15,7 +15,7 @@
  */
 package com.github.fishlikewater.test.init;
 
-import com.github.fishlikewater.raidencore.MultipartData;
+import com.github.fishlikewater.raiden.http.core.MultipartData;
 import com.github.fishlikewater.test.domain.DemoPayload;
 import com.github.fishlikewater.test.remote.DemoFile;
 import com.github.fishlikewater.test.remote.DemoLocal;

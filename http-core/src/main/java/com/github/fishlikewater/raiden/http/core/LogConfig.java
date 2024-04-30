@@ -13,20 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.fishlikewater.test;
+package com.github.fishlikewater.raiden.http.core;
 
-import com.github.fishlikewater.raiden.http.autoconfigure.annotaion.HttpScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
+ * 日志配置
+ *
  * @author fishlikewater@126.com
- */
-@SpringBootApplication
-@HttpScan("com.github.fishlikewater.test")
-public class RaidenSpringBootTestApplication {
+ * @since 2023年09月25日 14:55
+ * @version 1.0.0
+ **/
+@Data
+@Accessors(chain = true)
+public class LogConfig {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RaidenSpringBootTestApplication.class, args);
+    private boolean enableLog;
+
+    private LogLevel logLevel = LogLevel.BASIC;
+
+    public enum LogLevel {
+
+        // 日志类型
+        BASIC,
+
+        HEADS,
+
+        DETAIL;
     }
 }

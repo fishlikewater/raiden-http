@@ -15,7 +15,7 @@
  */
 package com.github.fishlikewater.test.interceptor;
 
-import com.github.fishlikewater.raidencore.interceptor.HttpClientInterceptor;
+import com.github.fishlikewater.raiden.http.core.interceptor.HttpClientInterceptor;
 import org.springframework.stereotype.Component;
 
 import java.net.http.HttpRequest;

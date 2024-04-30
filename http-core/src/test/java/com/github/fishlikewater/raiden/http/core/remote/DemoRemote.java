@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.fishlikewater.test.remote;
+package com.github.fishlikewater.raiden.http.core.remote;
 
-import com.github.fishlikewater.raiden.http.core.annotation.*;
-import com.github.fishlikewater.test.interceptor.MyInterceptor;
+import com.github.fishlikewater.raiden.http.core.annotation.GET;
+import com.github.fishlikewater.raiden.http.core.annotation.HttpServer;
+import com.github.fishlikewater.raiden.http.core.annotation.Param;
+import com.github.fishlikewater.raiden.http.core.annotation.PathParam;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,8 +31,7 @@ import java.util.concurrent.CompletableFuture;
  * <p>
  * 这里使用自定义httpclient 如不设置 则会使用默认的httpclient 默认的httpclient 访问https时会校验证书
  */
-@HttpServer(sourceHttpClient = "customer")
-@Interceptor(MyInterceptor.class )
+@HttpServer(sourceHttpClient = "third")
 public interface DemoRemote {
 
     /**

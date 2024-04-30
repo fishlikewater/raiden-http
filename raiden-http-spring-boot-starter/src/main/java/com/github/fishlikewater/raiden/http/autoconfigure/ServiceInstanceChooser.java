@@ -13,20 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.fishlikewater.test;
+package com.github.fishlikewater.raiden.http.autoconfigure;
 
-import com.github.fishlikewater.raiden.http.autoconfigure.annotaion.HttpScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.net.URI;
 
 /**
+ * 注册服务选择
+ *
  * @author fishlikewater@126.com
- */
-@SpringBootApplication
-@HttpScan("com.github.fishlikewater.test")
-public class RaidenSpringBootTestApplication {
+ * @since 2023年09月26日 14:33
+ * @version 1.0.0
+ **/
+@FunctionalInterface
+public interface ServiceInstanceChooser {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RaidenSpringBootTestApplication.class, args);
+    /**
+     * 选择服务实例
+     *
+     * @param serviceId 服务id
+     * @return 服务实例
+     */
+    URI choose(String serviceId);
+
+    class NoValidServiceInstanceChooser implements ServiceInstanceChooser {
+
+        @Override
+        public URI choose(String serviceId) {
+            throw new RuntimeException("没有配置服务选择实现类，请配置它");
+        }
     }
 }
