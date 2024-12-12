@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.github.fishlikewater</groupId>
+        <groupId>io.github.fishlikewater</groupId>
         <artifactId>raiden-http</artifactId>
-        <version>${raiden.version}</version>
+        <version>${raiden-http.version}</version>
     </parent>
     <artifactId>raiden-spring-boot-test</artifactId>
     <name>raiden-spring-boot-test</name>
@@ -18,13 +18,24 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.fishlikewater</groupId>
+            <groupId>io.github.fishlikewater</groupId>
             <artifactId>raiden-http-spring-boot-starter</artifactId>
-            <version>${raiden.version}</version>
+            <version>${raiden-http.version}</version>
         </dependency>
     </dependencies>
 
     <build>
 
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
