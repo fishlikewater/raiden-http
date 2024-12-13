@@ -71,20 +71,19 @@
   - 定义拦截器
 
   ```java
-  public class MyInterceptor implements HttpClientInterceptor {
-  
-      @Override
-      public HttpRequest requestBefore(HttpRequest httpRequest) {
-          System.out.println("自定义拦截器--请求");
-  
-          return httpRequest;
-      }
-  
-      @Override
-      public <T> HttpResponse<T> requestAfter(HttpResponse<T> response) {
-          System.out.println("自定义拦截器--响应");
-          return response;
-      }
+  @Component
+  public class MyInterceptor implements HttpInterceptor {
+
+    @Override
+    public Response intercept(Chain chain) throws IOException, InterruptedException {
+        System.out.println("------interceptor------");
+        return chain.proceed();
+    }
+
+    @Override
+    public int order() {
+        return 0;
+    }
   }
   ```
 

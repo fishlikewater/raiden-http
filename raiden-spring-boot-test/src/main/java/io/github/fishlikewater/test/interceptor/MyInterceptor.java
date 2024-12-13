@@ -34,7 +34,8 @@ public class MyInterceptor implements HttpInterceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException, InterruptedException {
-        return null;
+        System.out.println("------interceptor------");
+        return chain.proceed();
     }
 
     @Override

@@ -23,7 +23,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author fishlikewater@126.com
  */
 @SpringBootApplication
-@HttpScan("com.github.fishlikewater.test")
+@HttpScan("io.github.fishlikewater.test")
 public class RaidenSpringBootTestApplication {
 
     public static void main(String[] args) {
