@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 ${owner} (fishlikewater@126.com)
+ * Copyright (c) 2024 zhangxiang (fishlikewater@126.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import java.lang.annotation.*;
  *       String test3(@Body Map<String, String> map);
  *     }
  * </pre>
- *
  * @author fishlikewater@126.com
  * @version 1.0.0
  * @since 2023年09月28日 20:30

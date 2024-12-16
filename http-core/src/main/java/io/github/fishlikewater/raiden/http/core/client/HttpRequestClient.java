@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 ${owner} (fishlikewater@126.com)
+ * Copyright (c) 2024 zhangxiang (fishlikewater@126.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  */
 package io.github.fishlikewater.raiden.http.core.client;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.fishlikewater.raiden.core.Assert;
 import io.github.fishlikewater.raiden.core.ObjectUtils;
@@ -278,7 +277,7 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
                     params.append(param);
                 }
             } else {
-                final Map<String, Object> map = BeanUtil.beanToMap(bodyObject);
+                final Map<String, Object> map = ObjectUtils.beanToMap(bodyObject, false);
                 for (Map.Entry<?, ?> item : map.entrySet()) {
                     String param = StringUtils.format("&{}={}", item.getKey().toString().trim(), item.getValue().toString().trim());
                     params.append(param);

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 ${owner} (fishlikewater@126.com)
+ * Copyright (c) 2024 zhangxiang (fishlikewater@126.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ import java.util.Set;
 
 /**
  * @author fishlikewater@126.com
- * @version 1.0.0
  * @since 2023年09月22日 12:32
+ * @version 1.0.0
  */
 @Slf4j
 public class ClassPathRemoteServerScanner extends ClassPathBeanDefinitionScanner {

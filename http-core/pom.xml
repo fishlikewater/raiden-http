@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.fishlikewater</groupId>
         <artifactId>raiden-http</artifactId>
-        <version>${raiden-http.version}</version>
+        <version>${http.version}</version>
     </parent>
     <artifactId>http-core</artifactId>
     <description>http 请求封装核心包</description>
@@ -18,11 +18,6 @@
         <dependency>
             <groupId>io.github.fishlikewater</groupId>
             <artifactId>json-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
         </dependency>
 
         <dependency>

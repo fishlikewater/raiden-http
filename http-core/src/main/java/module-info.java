@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 ${owner} (fishlikewater@126.com)
+ * Copyright (c) 2024 zhangxiang (fishlikewater@126.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ module raiden.http.core {
     requires raiden.core;
     requires raiden.json.core;
     requires java.net.http;
-    requires cn.hutool.core;
     requires io.github.classgraph;
     requires jdk.httpserver;
     requires io.github.resilience4j.circuitbreaker;

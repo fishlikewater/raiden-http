@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>io.github.fishlikewater</groupId>
         <artifactId>raiden-parent</artifactId>
@@ -9,10 +8,15 @@
     </parent>
 
     <artifactId>raiden-http</artifactId>
-    <version>${raiden-http.version}</version>
+    <version>${http.version}</version>
     <packaging>pom</packaging>
     <name>raiden-http</name>
     <description>http 请求封装</description>
+
+    <properties>
+        <parent.version>1.1.0</parent.version>
+        <http.version>1.1.1</http.version>
+    </properties>
 
     <modules>
         <module>http-core</module>
@@ -20,8 +24,52 @@
         <module>raiden-spring-boot-test</module>
     </modules>
 
-    <properties>
-        <raiden-http.version>1.1.0</raiden-http.version>
-    </properties>
+    <url>https://github.com/fishlikewater/raiden-http/tree/master</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://github.com/fishlikewater/raiden-http/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>git@github.com/fishlikewater/raiden-http.git</url>
+        <connection>scm:git@github.com/fishlikewater/raiden-http.git</connection>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/fishlikewater/raiden-http/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>zhangxiang</name>
+            <email>fishlikewater@126.com</email>
+        </developer>
+    </developers>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.fishlikewater</groupId>
+                <artifactId>json-core</artifactId>
+                <version>${parent.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.fishlikewater</groupId>
+                <artifactId>http-core</artifactId>
+                <version>${http.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.fishlikewater</groupId>
+                <artifactId>raiden-http-spring-boot-starter</artifactId>
+                <version>${http.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

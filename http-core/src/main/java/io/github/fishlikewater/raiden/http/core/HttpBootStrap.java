@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 ${owner} (fishlikewater@126.com)
+ * Copyright (c) 2024 zhangxiang (fishlikewater@126.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package io.github.fishlikewater.raiden.http.core;
 
-import cn.hutool.core.lang.Assert;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
+import io.github.fishlikewater.raiden.core.Assert;
 import io.github.fishlikewater.raiden.core.ObjectUtils;
 import io.github.fishlikewater.raiden.http.core.annotation.Degrade;
 import io.github.fishlikewater.raiden.http.core.annotation.HttpServer;

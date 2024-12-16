@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 ${owner} (fishlikewater@126.com)
+ * Copyright (c) 2024 zhangxiang (fishlikewater@126.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,9 @@
  */
 package io.github.fishlikewater.raiden.http.core.proxy;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.text.StrFormatter;
-import cn.hutool.core.util.TypeUtil;
 import io.github.fishlikewater.raiden.core.ObjectUtils;
+import io.github.fishlikewater.raiden.core.StringUtils;
+import io.github.fishlikewater.raiden.core.TypeUtils;
 import io.github.fishlikewater.raiden.http.core.*;
 import io.github.fishlikewater.raiden.http.core.annotation.Body;
 import io.github.fishlikewater.raiden.http.core.annotation.Heads;
@@ -33,6 +31,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.net.http.HttpClient;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -76,7 +75,7 @@ public interface InterfaceProxy {
                 .circuitBreakerConfigName(methodArgsBean.getCircuitBreakerConfigName())
                 .httpMethod(httpMethod)
                 .returnType(returnType)
-                .typeArgumentClass(TypeUtil.getClass(typeArgument))
+                .typeArgumentClass(TypeUtils.getClass(typeArgument))
                 .form(form)
                 .sync(methodArgsBean.isSync())
                 .url(url)
@@ -114,8 +113,8 @@ public interface InterfaceProxy {
      * @param args        参数
      */
     default void buildParams(RequestWrap requestWrap, Parameter[] parameters, Object[] args) {
-        Map<String, String> paramMap = MapUtil.newHashMap();
-        Map<String, String> paramPath = MapUtil.newHashMap();
+        Map<String, String> paramMap = new HashMap<>();
+        Map<String, String> paramPath = new HashMap<>();
         Object bodyObject = null;
         MultipartData multipartData = null;
         for (int i = 0; i < parameters.length; i++) {
@@ -144,7 +143,7 @@ public interface InterfaceProxy {
             }
         }
         if (!paramPath.isEmpty()) {
-            String url = StrFormatter.format(requestWrap.getUrl(), paramPath, true);
+            String url = StringUtils.format(requestWrap.getUrl(), paramPath, true);
             requestWrap.setUrl(url);
         }
         requestWrap.setParamMap(paramMap);
@@ -163,7 +162,7 @@ public interface InterfaceProxy {
         if (arg instanceof String || arg instanceof Number) {
             paramMap.put(param.value(), arg.toString());
         } else {
-            Map<String, Object> map = BeanUtil.beanToMap(arg, true, true);
+            Map<String, Object> map = ObjectUtils.beanToMap(arg, true);
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 paramMap.put(entry.getKey(), entry.getValue().toString());
             }
