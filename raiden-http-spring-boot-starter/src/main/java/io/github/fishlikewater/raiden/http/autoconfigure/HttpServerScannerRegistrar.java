@@ -65,6 +65,7 @@ public class HttpServerScannerRegistrar implements ImportBeanDefinitionRegistrar
         if (attributes == null) {
             return;
         }
+        final boolean cacheRequestWrap = environment.getProperty("raiden.http.cache-request-wrap", boolean.class, true);
         final boolean enableLog = environment.getProperty("raiden.http.enable-log", boolean.class, false);
         final LogLevel logLevel = environment.getProperty("raiden.http.log-level", LogLevel.class, LogLevel.BASIC);
         final int maxRetryCount = environment.getProperty("raiden.http.max-retry-count", int.class, 0);
@@ -78,6 +79,7 @@ public class HttpServerScannerRegistrar implements ImportBeanDefinitionRegistrar
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        HttpBootStrap.getConfig().setCacheRequestWrap(cacheRequestWrap);
         HttpBootStrap.getConfig().setMaxRetryCount(maxRetryCount);
         HttpBootStrap.getConfig().setRetryInterval(retryInterval);
         HttpBootStrap.getConfig().setEnableDegrade(enableGlobalDegrade);

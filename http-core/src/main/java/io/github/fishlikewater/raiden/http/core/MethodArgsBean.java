@@ -55,6 +55,8 @@ public class MethodArgsBean {
 
     private List<HttpInterceptor> interceptors;
 
+    private List<String> interceptorNames;
+
     private HttpMethod requestMethod;
 
     private boolean isForm;

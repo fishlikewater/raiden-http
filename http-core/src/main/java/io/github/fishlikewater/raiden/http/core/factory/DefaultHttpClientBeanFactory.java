@@ -103,13 +103,15 @@ public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {
         final String requestUrl = path.startsWith(HttpConstants.HTTP) ? path : getUrl(httpServer.protocol(), httpServer.url(), path);
         Class<? extends HttpInterceptor>[] interceptors = ObjectUtils.isNotNullOrEmpty(interceptor) ? interceptor.value() : null;
         List<HttpInterceptor> interceptorList = new ArrayList<>();
+        List<String> interceptorNames = new ArrayList<>();
         if (Objects.nonNull(interceptors)) {
             for (Class<? extends HttpInterceptor> aClass : interceptors) {
                 interceptorList.add(this.getInterceptor(aClass.getName()));
+                interceptorNames.add(aClass.getName());
             }
         }
         argsBean.setInterceptors(LambdaUtils.sort(interceptorList, Comparator.comparing(HttpInterceptor::order)));
-
+        argsBean.setInterceptorNames(interceptorNames);
         String exceptionProcessorClassName = ObjectUtils.isNotNullOrEmpty(httpServer.exceptionProcessor()) ? httpServer.exceptionProcessor().getName() : null;
         argsBean.setClassName(className)
                 .setServerName(serverName)

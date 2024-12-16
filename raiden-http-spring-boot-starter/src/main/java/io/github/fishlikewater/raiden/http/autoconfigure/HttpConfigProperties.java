@@ -36,6 +36,11 @@ public class HttpConfigProperties {
 
     private boolean enableLog;
 
+    /**
+     * 是否缓存请求包装对象，默认缓存
+     */
+    private boolean cacheRequestWrap = true;
+
     private LogLevel logLevel;
 
     private int maxRetryCount;

@@ -46,6 +46,11 @@ public class HttpConfig {
     private boolean selfManager;
 
     /**
+     * 是否缓存包装的请求参数
+     */
+    private boolean cacheRequestWrap = true;
+
+    /**
      * 最大重试次数
      */
     private int maxRetryCount;
