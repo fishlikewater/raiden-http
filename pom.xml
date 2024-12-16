@@ -38,7 +38,6 @@
     <modules>
         <module>http-core</module>
         <module>raiden-http-spring-boot-starter</module>
-        <module>raiden-spring-boot-test</module>
     </modules>
 
     <url>https://github.com/fishlikewater/raiden-http/tree/master</url>
