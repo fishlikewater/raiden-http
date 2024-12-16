@@ -16,7 +16,6 @@
 package io.github.fishlikewater.test.remote;
 
 import io.github.fishlikewater.raiden.http.core.annotation.*;
-import io.github.fishlikewater.test.interceptor.MyInterceptor;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * @since 2024/03/15
  */
 @HttpServer(sourceHttpClient = "customer")
-@Interceptor(MyInterceptor.class)
+//@Interceptor(MyInterceptor.class)
 public interface DemoRemote {
 
     /**
@@ -39,6 +38,7 @@ public interface DemoRemote {
      * @return {@code String}
      */
     @GET("www.baidu.com")
+    @Degrade()
     String baidu();
 
     /**

@@ -42,7 +42,13 @@ public class DemoRemoteController {
 
     @GetMapping("/remote")
     public String remote() {
-        return demoRemote.baidu();
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < 100; i++) {
+            demoRemote.baidu();
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println((t2 - t1) / 100);
+        return "success";
     }
 
     @GetMapping("/remote2")
