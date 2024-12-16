@@ -315,7 +315,7 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
 
     // ---------------------------------------------------------------- Async
 
-    @SuppressWarnings("all")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private <T> CompletableFuture<HttpResponse<T>> handlerAsync(RequestWrap requestWrap) {
         Class<?> typeArgumentClass = requestWrap.getTypeArgumentClass();
         MultipartData multipartData = requestWrap.getMultipartData();

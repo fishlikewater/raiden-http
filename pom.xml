@@ -1,21 +1,38 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>io.github.fishlikewater</groupId>
-        <artifactId>raiden-parent</artifactId>
-        <version>1.1.0</version>
-    </parent>
-
+    <groupId>io.github.fishlikewater</groupId>
     <artifactId>raiden-http</artifactId>
-    <version>${http.version}</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>raiden-http</name>
     <description>http 请求封装</description>
 
     <properties>
-        <parent.version>1.1.0</parent.version>
-        <http.version>1.1.1</http.version>
+        <revision>1.1.0</revision>
+        <raiden.version>1.1.0</raiden.version>
+        <spring.boot.version>3.4.0</spring.boot.version>
+        <spring.boot.processor.version>3.4.0</spring.boot.processor.version>
+        <classgraph.version>4.8.162</classgraph.version>
+        <lombok.version>1.18.30</lombok.version>
+        <slf4j-api.veresion>2.0.9</slf4j-api.veresion>
+        <resilience4j.version>2.2.0</resilience4j.version>
+        <sentinel.version>1.8.8</sentinel.version>
+        <junit.version>4.13.1</junit.version>
+        <maven.compiler.compilerVersion>21</maven.compiler.compilerVersion>
+        <maven.compiler.source.version>21</maven.compiler.source.version>
+        <maven.compiler.target.version>21</maven.compiler.target.version>
+        <maven-compiler.version>3.12.1</maven-compiler.version>
+        <maven-source.verion>3.3.0</maven-source.verion>
+        <maven-deploy.version>3.1.2</maven-deploy.version>
+        <maven-plugin-plugin.version>3.9.0</maven-plugin-plugin.version>
+        <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <license-maven.version>3.0</license-maven.version>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <sonatype.central.version>0.4.0</sonatype.central.version>
+        <javadoc.version>3.7.0</javadoc.version>
+        <gpg.version>3.2.4</gpg.version>
     </properties>
 
     <modules>
@@ -50,26 +67,267 @@
         </developer>
     </developers>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>io.github.fishlikewater</groupId>
                 <artifactId>json-core</artifactId>
-                <version>${parent.version}</version>
+                <version>${raiden.version}</version>
+            </dependency>
+
+            <!--classgraph-->
+            <dependency>
+                <groupId>io.github.classgraph</groupId>
+                <artifactId>classgraph</artifactId>
+                <version>${classgraph.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.fishlikewater</groupId>
                 <artifactId>http-core</artifactId>
-                <version>${http.version}</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
                 <groupId>io.github.fishlikewater</groupId>
                 <artifactId>raiden-http-spring-boot-starter</artifactId>
-                <version>${http.version}</version>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-circuitbreaker</artifactId>
+                <version>${resilience4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-core</artifactId>
+                <version>${sentinel.version}</version>
+            </dependency>
+
+            <!--junit-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <!--slf4j-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.veresion}</version>
+            </dependency>
+
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source.version}</source>
+                    <target>${maven.compiler.target.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                        <arg>-Xlint:none</arg>
+                    </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                            <version>${spring.boot.processor.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source.verion}</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    <pomElements>
+                        <parent>expand</parent>
+                        <scm>keep</scm>
+                        <url>expand</url>
+                        <developers>expand</developers>
+                        <dependencies>expand</dependencies>
+                        <distributionManagement>remove</distributionManagement>
+                        <repositories>remove</repositories>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- ensure proper cleanup -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${license-maven.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>remove</goal>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <properties>
+                        <year>${maven.build.timestamp}</year>
+                        <author>zhangxiang</author>
+                        <email>fishlikewater@126.com</email>
+                    </properties>
+                    <!-- <inlineHeader>
+                     </inlineHeader>-->
+                    <quiet>true</quiet>
+                    <!--HEADER文件-->
+                    <header>${user.dir}/HEADER</header>
+                    <!--排除文件-->
+                    <excludes>
+                        <exclude>**/resources/**</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/*.yml</exclude>
+                        <exclude>*.sh</exclude>
+                        <exclude>*.yml</exclude>
+                        <exclude>.editorconfig</exclude>
+                        <exclude>.gitignore</exclude>
+                        <exclude>**/*.md</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/raiden/core/Assert.java</exclude>
+                        <exclude>**/references/**/**.java</exclude>
+                    </excludes>
+                    <strictCheck>true</strictCheck>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${sonatype.central.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>sonatype</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                        </configuration>
+                    </plugin>
+                    <!--   javadoc插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${javadoc.version}</version>
+                        <configuration>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <docencoding>${project.build.sourceEncoding}</docencoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${gpg.version}</version>
+                        <configuration>
+                            <keyname>github</keyname>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
