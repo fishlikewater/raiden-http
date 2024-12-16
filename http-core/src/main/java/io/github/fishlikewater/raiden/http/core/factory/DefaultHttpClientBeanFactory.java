@@ -159,7 +159,7 @@ public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         }
-        return List.of();
+        return new ArrayList<>();
     }
 
     @Override
