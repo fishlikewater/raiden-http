@@ -15,7 +15,6 @@
  */
 package io.github.fishlikewater.raiden.http.core.processor;
 
-import io.github.fishlikewater.raiden.core.LambdaUtils;
 import io.github.fishlikewater.raiden.core.ObjectUtils;
 import io.github.fishlikewater.raiden.http.core.HttpBootStrap;
 import io.github.fishlikewater.raiden.http.core.RequestWrap;
@@ -28,8 +27,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -48,11 +45,6 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
     @Override
     public Object handler(RequestWrap requestWrap) {
         List<HttpInterceptor> interceptors = requestWrap.getInterceptors();
-        if (ObjectUtils.isNullOrEmpty(interceptors)) {
-            interceptors = new ArrayList<>();
-        } else {
-            interceptors = LambdaUtils.sort(interceptors, (Comparator.comparingInt(HttpInterceptor::order)));
-        }
         interceptors.addFirst(retryInterceptor);
         if (HttpBootStrap.getConfig().isEnableLog()) {
             interceptors.addFirst(HttpBootStrap.getConfig().getLogInterceptor());

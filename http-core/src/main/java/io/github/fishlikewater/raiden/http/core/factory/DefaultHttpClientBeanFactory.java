@@ -15,6 +15,7 @@
  */
 package io.github.fishlikewater.raiden.http.core.factory;
 
+import io.github.fishlikewater.raiden.core.LambdaUtils;
 import io.github.fishlikewater.raiden.core.ObjectUtils;
 import io.github.fishlikewater.raiden.core.StringUtils;
 import io.github.fishlikewater.raiden.core.TypeUtils;
@@ -101,11 +102,13 @@ public class DefaultHttpClientBeanFactory implements HttpClientBeanFactory {
         final String className = method.getDeclaringClass().getName();
         final String requestUrl = path.startsWith(HttpConstants.HTTP) ? path : getUrl(httpServer.protocol(), httpServer.url(), path);
         Class<? extends HttpInterceptor>[] interceptors = ObjectUtils.isNotNullOrEmpty(interceptor) ? interceptor.value() : null;
-        if (ObjectUtils.isNotNullOrEmpty(interceptors)) {
+        List<HttpInterceptor> interceptorList = new ArrayList<>();
+        if (Objects.nonNull(interceptors)) {
             for (Class<? extends HttpInterceptor> aClass : interceptors) {
-                argsBean.addInterceptorName(aClass.getName());
+                interceptorList.add(this.getInterceptor(aClass.getName()));
             }
         }
+        argsBean.setInterceptors(LambdaUtils.sort(interceptorList, Comparator.comparing(HttpInterceptor::order)));
 
         String exceptionProcessorClassName = ObjectUtils.isNotNullOrEmpty(httpServer.exceptionProcessor()) ? httpServer.exceptionProcessor().getName() : null;
         argsBean.setClassName(className)

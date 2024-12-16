@@ -32,7 +32,6 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.net.http.HttpClient;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -72,6 +71,7 @@ public interface InterfaceProxy {
                 .args(args)
                 .degrade(methodArgsBean.isDegrade())
                 .degradeType(methodArgsBean.getDegradeType())
+                .interceptors(methodArgsBean.getInterceptors())
                 .circuitBreakerConfigName(methodArgsBean.getCircuitBreakerConfigName())
                 .httpMethod(httpMethod)
                 .returnType(returnType)
@@ -82,12 +82,9 @@ public interface InterfaceProxy {
                 .httpClient(httpClient)
                 .headMap(headMap)
                 .build();
-        List<String> interceptorNames = methodArgsBean.getInterceptorNames();
+
         String exceptionProcessorName = methodArgsBean.getExceptionProcessorName();
         String fallbackFactoryName = methodArgsBean.getFallbackFactoryName();
-        if (ObjectUtils.isNotNullOrEmpty(interceptorNames)) {
-            requestWrap.setInterceptors(httpClientBeanFactory.getInterceptors(interceptorNames));
-        }
         if (ObjectUtils.isNotNullOrEmpty(exceptionProcessorName)) {
             requestWrap.setExceptionProcessor(httpClientBeanFactory.getExceptionProcessor(exceptionProcessorName));
         }

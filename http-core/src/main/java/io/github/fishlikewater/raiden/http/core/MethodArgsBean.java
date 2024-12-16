@@ -17,6 +17,7 @@ package io.github.fishlikewater.raiden.http.core;
 
 import io.github.fishlikewater.raiden.http.core.enums.DegradeType;
 import io.github.fishlikewater.raiden.http.core.enums.HttpMethod;
+import io.github.fishlikewater.raiden.http.core.interceptor.HttpInterceptor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +26,6 @@ import lombok.experimental.Accessors;
 
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +53,7 @@ public class MethodArgsBean {
 
     private String sourceHttpClientName;
 
-    private List<String> interceptorNames;
+    private List<HttpInterceptor> interceptors;
 
     private HttpMethod requestMethod;
 
@@ -127,11 +127,4 @@ public class MethodArgsBean {
      * 熔断降级类型
      */
     private DegradeType degradeType;
-
-    public void addInterceptorName(String interceptorName) {
-        if (this.interceptorNames == null) {
-            this.interceptorNames = new ArrayList<>();
-        }
-        this.interceptorNames.add(interceptorName);
-    }
 }
