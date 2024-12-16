@@ -32,6 +32,7 @@
         <dependency>
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-circuitbreaker</artifactId>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>
