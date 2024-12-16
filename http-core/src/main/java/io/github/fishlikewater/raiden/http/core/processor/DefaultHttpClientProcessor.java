@@ -16,13 +16,11 @@
 package io.github.fishlikewater.raiden.http.core.processor;
 
 import io.github.fishlikewater.raiden.core.ObjectUtils;
-import io.github.fishlikewater.raiden.http.core.HttpBootStrap;
 import io.github.fishlikewater.raiden.http.core.RequestWrap;
 import io.github.fishlikewater.raiden.http.core.Response;
 import io.github.fishlikewater.raiden.http.core.client.HttpRequestClient;
-import io.github.fishlikewater.raiden.http.core.constant.DefaultConstants;
-import io.github.fishlikewater.raiden.http.core.enums.DegradeType;
-import io.github.fishlikewater.raiden.http.core.interceptor.*;
+import io.github.fishlikewater.raiden.http.core.interceptor.HttpInterceptor;
+import io.github.fishlikewater.raiden.http.core.interceptor.RealInterceptorChain;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,34 +36,11 @@ import java.util.List;
 public class DefaultHttpClientProcessor implements HttpClientProcessor {
 
     private final HttpRequestClient httpRequestClient = new HttpRequestClient();
-    private final CallServerHttpInterceptor callServerInterceptor = new CallServerHttpInterceptor(httpRequestClient);
-    private final RetryInterceptor retryInterceptor = new RetryInterceptor();
 
     @SneakyThrows(Throwable.class)
     @Override
     public Object handler(RequestWrap requestWrap) {
         List<HttpInterceptor> interceptors = requestWrap.getInterceptors();
-        interceptors.addFirst(retryInterceptor);
-        if (HttpBootStrap.getConfig().isEnableLog()) {
-            interceptors.addFirst(HttpBootStrap.getConfig().getLogInterceptor());
-        }
-        if (requestWrap.isDegrade()) {
-            interceptors.addLast(requestWrap.getDegradeType() == DegradeType.RESILIENCE4J
-                    ? Resilience4jInterceptorBuilder.INSTANCE
-                    : SentinelInterceptorBuilder.INSTANCE
-            );
-        } else {
-            if (HttpBootStrap.getConfig().isEnableDegrade()) {
-                interceptors.addLast(HttpBootStrap.getConfig().getDegradeType() == DegradeType.RESILIENCE4J
-                        ? Resilience4jInterceptorBuilder.INSTANCE
-                        : SentinelInterceptorBuilder.INSTANCE
-                );
-                requestWrap.setDegrade(true);
-                requestWrap.setDegradeType(HttpBootStrap.getConfig().getDegradeType());
-                requestWrap.setCircuitBreakerConfigName(DefaultConstants.GLOBAL_CIRCUIT_BREAKER_CONFIG);
-            }
-        }
-        interceptors.addLast(callServerInterceptor);
         httpRequestClient.buildHttpRequest(requestWrap);
         RealInterceptorChain chain = new RealInterceptorChain(requestWrap, interceptors);
         Response response = chain.proceed();
@@ -76,13 +51,5 @@ public class DefaultHttpClientProcessor implements HttpClientProcessor {
             return response.getSyncResponse().body();
         }
         return response.getAsyncResponse().thenApply(HttpResponse::body);
-    }
-
-    private static class Resilience4jInterceptorBuilder {
-        private static final Resilience4jInterceptor INSTANCE = new Resilience4jInterceptor();
-    }
-
-    private static class SentinelInterceptorBuilder {
-        private static final SentinelInterceptor INSTANCE = new SentinelInterceptor();
     }
 }

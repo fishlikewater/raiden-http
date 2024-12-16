@@ -15,7 +15,6 @@
  */
 package io.github.fishlikewater.raiden.http.core;
 
-import io.github.fishlikewater.raiden.core.ObjectUtils;
 import io.github.fishlikewater.raiden.http.core.degrade.FallbackFactory;
 import io.github.fishlikewater.raiden.http.core.enums.DegradeType;
 import io.github.fishlikewater.raiden.http.core.enums.HttpMethod;
@@ -29,7 +28,6 @@ import lombok.NoArgsConstructor;
 import java.lang.reflect.Method;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -152,10 +150,22 @@ public class RequestWrap {
      */
     private HttpRequest httpRequest;
 
-    public synchronized void addInterceptor(HttpInterceptor interceptor) {
-        if (ObjectUtils.isNullOrEmpty(this.interceptors)) {
-            this.interceptors = new ArrayList<>();
-        }
-        this.interceptors.add(interceptor);
+    public RequestWrap build() {
+        return RequestWrap.builder()
+                .method(this.method)
+                .degrade(this.degrade)
+                .degradeType(this.getDegradeType())
+                .interceptors(this.interceptors)
+                .circuitBreakerConfigName(this.getCircuitBreakerConfigName())
+                .httpMethod(this.httpMethod)
+                .returnType(this.returnType)
+                .typeArgumentClass(this.typeArgumentClass)
+                .form(this.form)
+                .sync(this.sync)
+                .url(this.url)
+                .httpClient(this.httpClient)
+                .exceptionProcessor(this.exceptionProcessor)
+                .fallbackFactory(this.fallbackFactory)
+                .build();
     }
 }
