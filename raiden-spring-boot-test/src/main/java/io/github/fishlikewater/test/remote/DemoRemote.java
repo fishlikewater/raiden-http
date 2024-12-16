@@ -16,6 +16,9 @@
 package io.github.fishlikewater.test.remote;
 
 import io.github.fishlikewater.raiden.http.core.annotation.*;
+import io.github.fishlikewater.raiden.http.core.enums.DegradeType;
+import io.github.fishlikewater.test.fallback.DemoFallback;
+import io.github.fishlikewater.test.interceptor.MyInterceptor;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,7 +32,8 @@ import java.util.concurrent.CompletableFuture;
  * @since 2024/03/15
  */
 @HttpServer(sourceHttpClient = "customer")
-//@Interceptor(MyInterceptor.class)
+@Interceptor({MyInterceptor.class})
+@Degrade(type = DegradeType.SENTINEL, fallback = DemoFallback.class, circuitBreakerConfigName = "test")
 public interface DemoRemote {
 
     /**
@@ -38,7 +42,7 @@ public interface DemoRemote {
      * @return {@code String}
      */
     @GET("www.baidu.com")
-    @Degrade()
+    @Degrade(type = DegradeType.RESILIENCE4J, fallback = DemoFallback.class, circuitBreakerConfigName = "test")
     String baidu();
 
     /**
