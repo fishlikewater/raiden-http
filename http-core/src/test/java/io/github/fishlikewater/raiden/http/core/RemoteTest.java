@@ -46,14 +46,17 @@ public class RemoteTest {
 
     @Before
     public void before() throws ClassNotFoundException {
-        HttpBootStrap.setSelfManager(true);
-        HttpBootStrap.init("io.github.fishlikewater.raiden.http.core.remote");
-        HttpBootStrap.registerHttpClient("third", HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build());
         HttpBootStrap.getConfig()
+                .setSelfManager(true)
                 .setEnableLog(false)
                 .setLogLevel(LogLevel.BASIC)
                 .setMaxRetryCount(0)
-                .setRetryInterval(2000);
+                .setRetryInterval(2000)
+                .setEnableDegrade(false)
+                .setDegradeType(DegradeType.RESILIENCE4J);
+
+        HttpBootStrap.init("io.github.fishlikewater.raiden.http.core.remote");
+        HttpBootStrap.registerHttpClient("third", HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build());
 
         CircuitBreakerConfig config = CircuitBreakerConfig.custom()
                 .failureRateThreshold(50) // 当失败率达到50%时打开断路器
@@ -78,10 +81,6 @@ public class RemoteTest {
         HttpBootStrap.getConfig()
                 .getSentDegradeRuleRegistry()
                 .register("test", rule);
-
-        HttpBootStrap.getConfig()
-                .setEnableDegrade(false)
-                .setDegradeType(DegradeType.RESILIENCE4J);
     }
 
     @Test
