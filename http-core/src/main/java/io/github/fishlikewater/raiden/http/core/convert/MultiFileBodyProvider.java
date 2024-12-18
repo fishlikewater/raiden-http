@@ -157,11 +157,18 @@ public class MultiFileBodyProvider implements HttpRequest.BodyPublisher {
     private void handleParam(Object paramObj) {
         StringBuilder paramData = new StringBuilder();
         if (Objects.nonNull(paramObj)) {
-            Map<String, Object> paramMap = ObjectUtils.beanToMap(paramObj, true);
-            paramMap.forEach((k, v) -> {
-                paramData.append("--").append(boundary).append("\r\n");
-                paramData.append("Content-Disposition: form-data; name=\"").append(k).append("\"\r\n\r\n").append(v).append("\r\n");
-            });
+            if (paramObj instanceof Map<?, ?> map) {
+                map.forEach((k, v) -> {
+                    paramData.append("--").append(boundary).append("\r\n");
+                    paramData.append("Content-Disposition: form-data; name=\"").append(k).append("\"\r\n\r\n").append(v).append("\r\n");
+                });
+            } else {
+                Map<String, Object> paramMap = ObjectUtils.beanToMap(paramObj, true);
+                paramMap.forEach((k, v) -> {
+                    paramData.append("--").append(boundary).append("\r\n");
+                    paramData.append("Content-Disposition: form-data; name=\"").append(k).append("\"\r\n\r\n").append(v).append("\r\n");
+                });
+            }
         }
         this.paramByte = paramData.toString().getBytes();
         this.contentLength += this.paramByte.length;

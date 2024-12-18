@@ -306,7 +306,9 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
         if (Objects.nonNull(headMap)) {
             headMap.forEach(builder::header);
         }
-        builder.header("Content-Type", StringUtils.format("multipart/form-data; boundary={}", boundaryString));
+        if (Objects.isNull(headMap.get(HttpConstants.CONTENT_TYPE))) {
+            builder.header(HttpConstants.CONTENT_TYPE, StringUtils.format("multipart/form-data; boundary={}", boundaryString));
+        }
         HttpRequest.BodyPublisher requestBody = new MultiFileBodyProvider(requestWrap.getMultipartData(), requestWrap.getBodyObject(), boundaryString);
         builder.method(requestWrap.getHttpMethod().name(), requestBody);
         HttpRequest httpRequest = builder.build();
@@ -456,7 +458,7 @@ public class HttpRequestClient extends AbstractHttpRequestClient {
      * @return {@link String}
      */
     private String boundaryString() {
-        return StringUtils.format("Boundary {}", System.currentTimeMillis());
+        return StringUtils.format("Boundary--{}", System.currentTimeMillis());
     }
 
 }
